@@ -2,9 +2,4 @@
 
 ## A repository of useful code for the **Derby**
 
-> Repository includes elements such as:
-> 
-> 
-> Drivetrain
-> 
-> Autonomous
+> Repository inclues elements such as the drivetrain and autonomous
