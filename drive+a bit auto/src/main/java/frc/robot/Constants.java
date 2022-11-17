@@ -1,6 +1,4 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+//RANDOM, IGNORABLE NUMBERS
 
 package frc.robot;
 
@@ -15,15 +13,16 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
  * constants. This class should not be used for any other purpose. All constants should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
+ * It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
   public static final class DriveConstants {
-    public static final int kLeftMotor1Port = 0;
-    public static final int kLeftMotor2Port = 1;
-    public static final int kRightMotor1Port = 2;
-    public static final int kRightMotor2Port = 3;
+    
+    public static final int kLeftMotor1Port = 14; //front
+    public static final int kLeftMotor2Port = 4;
+    public static final int kRightMotor1Port = 15;
+    public static final int kRightMotor2Port = 6;
 
     public static final int[] kLeftEncoderPorts = new int[] {0, 1};
     public static final int[] kRightEncoderPorts = new int[] {2, 3};
@@ -42,18 +41,11 @@ public final class Constants {
 
     public static final boolean kGyroReversed = true;
 
-    // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
-    // These characterization values MUST be determined either experimentally or theoretically
-    // for *your* robot's drive.
-    // The Robot Characterization Toolsuite provides a convenient tool for obtaining these
-    // values for your robot.
+
     public static final double ksVolts = 0.22;
     public static final double kvVoltSecondsPerMeter = 1.98;
     public static final double kaVoltSecondsSquaredPerMeter = 0.2;
 
-    // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
-    // These characterization values MUST be determined either experimentally or theoretically
-    // for *your* robot's drive.
     // These two values are "angular" kV and kA
     public static final double kvVoltSecondsPerRadian = 1.5;
     public static final double kaVoltSecondsSquaredPerRadian = 0.3;

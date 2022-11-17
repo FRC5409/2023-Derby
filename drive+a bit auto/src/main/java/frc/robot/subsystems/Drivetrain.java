@@ -1,6 +1,4 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+//drivetrain
 
 package frc.robot.subsystems;
 
@@ -15,6 +13,7 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+
 public class Drivetrain extends SubsystemBase {
   /**
    * The Drivetrain subsystem incorporates the sensors and actuators attached to the robots chassis.
@@ -28,14 +27,14 @@ public class Drivetrain extends SubsystemBase {
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
 
-  private final Encoder m_leftEncoder = new Encoder(1, 2);
-  private final Encoder m_rightEncoder = new Encoder(3, 4);
-  private final AnalogInput m_rangefinder = new AnalogInput(6);
-  private final AnalogGyro m_gyro = new AnalogGyro(1);
+  private final Encoder m_leftEncoder = new Encoder(1, 2); 
+  private final Encoder m_rightEncoder = new Encoder(3, 4); 
+  private final AnalogInput m_rangefinder = new AnalogInput(6); 
+  private final AnalogGyro m_gyro = new AnalogGyro(1); 
 
   /** Create a new drivetrain subsystem. */
   public Drivetrain() {
-    super();
+
 
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
@@ -56,7 +55,7 @@ public class Drivetrain extends SubsystemBase {
       m_rightEncoder.setDistancePerPulse((4.0 / 12.0 * Math.PI) / 360.0);
     }
 
-    // Let's name the sensors on the LiveWindow
+    // Name the sensors on the LiveWindow
     addChild("Drive", m_drive);
     addChild("Left Encoder", m_leftEncoder);
     addChild("Right Encoder", m_rightEncoder);
@@ -108,19 +107,12 @@ public class Drivetrain extends SubsystemBase {
     return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2;
   }
 
-  /**
-   * Get the distance to the obstacle.
-   *
-   * @return The distance to the obstacle detected by the rangefinder.
-   */
-  public double getDistanceToObstacle() {
-    // Really meters in simulation since it's a rangefinder...
-    return m_rangefinder.getAverageVoltage();
-  }
 
   /** Call log method every loop. */
   @Override
   public void periodic() {
     log();
   }
+
 }
+
