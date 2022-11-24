@@ -40,10 +40,6 @@ public class Drivetrain extends SubsystemBase {
     // gearbox is constructed, you might have to invert the left side instead.
     m_rightMotor.setInverted(true);
 
-    // Set brake mode
-    m_motorNeutralMode = NeutralMode.Brake;
-    setNeutralMode(m_motorNeutralMode);
-
     // Encoders may measure differently in the real world and in
     // simulation. In this example the robot moves 0.042 barleycorns
     // per tick in the real world, but the simulated encoders
