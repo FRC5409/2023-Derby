@@ -1,7 +1,6 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -80,16 +79,7 @@ public class DriveSubsystem extends SubsystemBase {
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
     if (RobotBase.isSimulation()) { // If our robot is simulated
-      // This class simulates our drivetrain's motion around the field.
-      m_drivetrainSimulator =
-          new DifferentialDrivetrainSim(
-              DriveConstants.kDrivetrainPlant,
-              DriveConstants.kDriveGearbox,
-              DriveConstants.kDriveGearing,
-              DriveConstants.kTrackwidthMeters,
-              DriveConstants.kWheelDiameterMeters / 2.0,
-              VecBuilder.fill(0, 0, 0.0001, 0.1, 0.1, 0.005, 0.005));
-
+ 
       // The encoder and gyro angle sims let us set simulated sensor readings
       m_leftEncoderSim = new EncoderSim(m_leftEncoder);
       m_rightEncoderSim = new EncoderSim(m_rightEncoder);
