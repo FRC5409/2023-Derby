@@ -6,12 +6,11 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.DriveTrain;
 
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class Drive extends CommandBase {
+public class DefaultDriveTrain extends CommandBase {
   private final DriveTrain sys_drive;
   private final XboxController m_joystick;
 
@@ -21,7 +20,7 @@ public class Drive extends CommandBase {
    * @param subsystem The subsystem used by this command.
    * @param m_subsystem 
    */
-  public Drive(DriveTrain subsystem, XboxController joystick) {
+  public DefaultDriveTrain(DriveTrain subsystem, XboxController joystick) {
     sys_drive = subsystem;
     m_joystick = joystick;
     
