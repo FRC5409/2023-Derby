@@ -8,23 +8,21 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+
 /** An example command that uses an example subsystem. */
 public class DeafultDrive extends CommandBase {
-  private final DeafultDrive sys_drive;
-  private final XboxController m_joystick;
-
+//  private final DeafultDrive sys_drive;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    * @param m_subsystem 
    */
-  public DeafultDrive(DeafultDrive subsystem, XboxController joystick) {
-    sys_drive = subsystem;
-    m_joystick = joystick;
+  public DeafultDrive(DeafultDrive DriveTrain, XboxController joystick) {
+//    sys_drive = DriveTrain;
     
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+//    addRequirements(DriveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -35,10 +33,10 @@ public class DeafultDrive extends CommandBase {
   @Override
   public void execute() {
     //Left trigger(acceleration), right trigger(deceleration), LeftX
-    double acceleration = m_joystick.getLeftTriggerAxis();
-    double deceleration = m_joystick.getRightTriggerAxis();
+//    double acceleration = m_joystick.getLeftTriggerAxis();
+//    double deceleration = m_joystick.getRightTriggerAxis();
 
-    double turnValue = m_joystick.getLeftX();
+//    double turnValue = m_joystick.getLeftX();
 
   }
 

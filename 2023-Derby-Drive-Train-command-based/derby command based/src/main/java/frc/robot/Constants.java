@@ -15,11 +15,11 @@ package frc.robot;
 public final class Constants {
     public static class kDriveTrain {   
         // Motor CAN IDs
-        public static final int kLeftDriveFront = 14;
-        public static final int kLeftDriveRear = 4;
+        public static final int CANLeftDriveFront = 14;
+        public static final int CANLeftDriveRear = 4;
         
-        public static final int kRightDriveRear = 6;
-        public static final int kRightDriveFront = 15;
+        public static final int CANRightDriveRear = 6;
+        public static final int CANRightDriveFront = 15;
 
         // Drive mode constants
         public static final int ARCADE_DRIVE = 1; // Arcade Drive

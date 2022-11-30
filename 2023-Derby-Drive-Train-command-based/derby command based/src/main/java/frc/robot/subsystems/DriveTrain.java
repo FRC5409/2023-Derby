@@ -34,13 +34,13 @@ public class DriveTrain extends SubsystemBase {
 
     /** Creates a new DriveTrain. */
     public DriveTrain() {
-        mot_leftFrontDrive = new WPI_TalonSRX(kDriveTrain.CANLeftDriveFront); // Has encoder
+        mot_leftFrontDrive = new WPI_TalonSRX(kDriveTrain.CANLeftDriveFront);
         // mot_leftFrontDrive.setInverted(true);
 
         mot_leftRearDrive = new WPI_TalonSRX(kDriveTrain.CANLeftDriveRear);
         mot_leftRearDrive.follow(mot_leftFrontDrive);
 
-        mot_rightFrontDrive = new WPI_TalonSRX(kDriveTrain.CANRightDriveFront); // Has encoder
+        mot_rightFrontDrive = new WPI_TalonSRX(kDriveTrain.CANRightDriveFront);
         mot_rightFrontDrive.setInverted(true);
 
         mot_rightRearDrive = new WPI_TalonSRX(kDriveTrain.CANRightDriveRear);
@@ -58,9 +58,7 @@ public class DriveTrain extends SubsystemBase {
 
         // mot_rightFrontDrive.getStatorCurrent();
 
-        m_drive = new DifferentialDrive(mot_leftFrontDrive, mot_rightFrontDrive);
 
-        ssl_gear = new Solenoid(0);
 
         SmartDashboard.putData(ssl_gear);
     }
