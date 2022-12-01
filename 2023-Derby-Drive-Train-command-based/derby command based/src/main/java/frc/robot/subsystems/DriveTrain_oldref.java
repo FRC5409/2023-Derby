@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -30,7 +31,7 @@ public class DriveTrain_oldref extends SubsystemBase {
     private boolean m_allowShift = false;
     private long m_timeSinceShift = 0;
 
-    private final WPI_Pigeoon2 gyro_pigeon;
+    private final WPI_Pigeon2 gyro_pigeon;
 
     /** Creates a new DriveTrain. */
     public DriveTrain_oldref() {

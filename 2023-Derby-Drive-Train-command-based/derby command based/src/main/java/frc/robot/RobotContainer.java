@@ -6,7 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.Drivefwd;
+//import frc.robot.commands.Drivestraight;
+
 
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -19,9 +20,18 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  private final XboxController m_joystick_main;
-  private final Drivefwd sys_DriveTrain;
+//  private final Drivefwd sys_DriveTrain;
 
+
+
+
+
+  private Command m_autonomousCommand;
+
+
+
+
+  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -42,9 +52,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    Command m_autoCommand; //place holder not official (OBV)
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return m_autonomousCommand;
   }
 }
 

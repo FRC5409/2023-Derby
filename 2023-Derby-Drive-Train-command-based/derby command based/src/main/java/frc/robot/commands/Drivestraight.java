@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
 /** Add your docs here. */
-public class Drivefwd extends CommandBase {
+public class Drivestraight extends CommandBase {
     private float driveSpeed;
     private final DriveTrain sys_drive;
 
-    public Drivefwd(DriveTrain subsystem, XboxController joystick) {
+    public Drivestraight(DriveTrain subsystem, XboxController joystick) {
         sys_drive = subsystem;
         addRequirements(subsystem);
     }
