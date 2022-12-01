@@ -21,5 +21,8 @@ public class DriveTrain extends SubsystemBase {
     public void tankDrive(float driveSpeed, float driveSpeed2) {
     }
 
-    
+    // Drivetrain constructor
+    public DriveTrain() {
+        
+    }
 }
