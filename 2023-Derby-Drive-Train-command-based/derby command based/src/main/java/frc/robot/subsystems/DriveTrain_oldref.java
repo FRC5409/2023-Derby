@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems;
+/* package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -17,7 +17,7 @@ import frc.robot.Constants.kDriveTrain;
 
 /**
  * DriveTrain subsystem
- */
+ 
 public class DriveTrain_oldref extends SubsystemBase {
     private final WPI_TalonSRX mot_leftFrontDrive;
     private final WPI_TalonSRX mot_leftRearDrive;
@@ -33,7 +33,7 @@ public class DriveTrain_oldref extends SubsystemBase {
 
     private final WPI_Pigeon2 gyro_pigeon;
 
-    /** Creates a new DriveTrain. */
+    /** Creates a new DriveTrain. 
     public DriveTrain_oldref() {
         mot_leftFrontDrive = new WPI_TalonSRX(kDriveTrain.CANLeftDriveFront);
         // mot_leftFrontDrive.setInverted(true);
@@ -67,7 +67,7 @@ public class DriveTrain_oldref extends SubsystemBase {
     /**
      * This method is called once per scheuler run and is used to update smart
      * dashboard data.
-     */
+     
     public void periodic() {
         // double vel = getSensorVelocity();
 
@@ -97,7 +97,7 @@ public class DriveTrain_oldref extends SubsystemBase {
 
     /**
      * This method sets the drive mode to the next one
-     */
+     
     public void nextDriveMode() {
         m_driveMode++;
 
@@ -107,7 +107,7 @@ public class DriveTrain_oldref extends SubsystemBase {
 
     /**
      * This method sets the drive mode to the previous one
-     */
+     
     public void previousDriveMode() {
         m_driveMode--;
 
@@ -119,7 +119,7 @@ public class DriveTrain_oldref extends SubsystemBase {
      * This method returns the current drive mode
      * 
      * @return int value corresponding to the current drive mode
-     */
+     
     public int getDriveMode() {
         return m_driveMode;
     }
@@ -130,7 +130,7 @@ public class DriveTrain_oldref extends SubsystemBase {
      * station.
      * 
      * @return String value for current drive mode
-     */
+     
     public String getDriveModeName() {
         switch (m_driveMode) {
             case kDriveTrain.ARCADE_DRIVE:
@@ -149,7 +149,7 @@ public class DriveTrain_oldref extends SubsystemBase {
     /**
      * This method will display values to the smart dashboard that relate to the
      * current drive mode.
-     */
+     
     public void displayDriveModeData() {
         switch (m_driveMode) {
             case kDriveTrain.ARCADE_DRIVE:
@@ -193,7 +193,7 @@ public class DriveTrain_oldref extends SubsystemBase {
 
     /**
      * This method will display encoder data.
-     */
+     
     public void displayEncoderData() {
         SmartDashboard.putNumber("MOT_FL_VEL", getSensorVelocity());
         SmartDashboard.putNumber("MOT_FL_POS", getSensorPosition());
@@ -212,7 +212,7 @@ public class DriveTrain_oldref extends SubsystemBase {
      * 
      * @param acceleration  Motor speed (-1.0 - 1.0) 
      * @param turn          Motor horizontal speed (-1.0 - 1.0)
-     */
+     
     public void arcadeDrive(final double acceleration, final double turn) {
         m_drive.arcadeDrive(acceleration, turn, true);
         SmartDashboard.putNumber("ADS_Acceleration", acceleration);
@@ -224,7 +224,7 @@ public class DriveTrain_oldref extends SubsystemBase {
      * @param acceleration Right acceleration
      * @param deceleration Left accelertation
      * @param turn         Turn percentage
-     */
+     
     public void aadlDrive(final double acceleration, final double deceleration, final double turn) {
         double accelrate = acceleration - deceleration;
 
@@ -238,7 +238,7 @@ public class DriveTrain_oldref extends SubsystemBase {
      * @param speed     Motor straight speed (-1.0 - 1.0)
      * @param turn      Motor horizontal speed (-1.0 - 1.0)
      * @param quickTurn Boolean fast turn value
-     */
+     
     public void curvDrive(final double speed, final double turn, final boolean quickTurn) {
         m_drive.curvatureDrive(speed, turn, quickTurn);
         SmartDashboard.putNumber("CD_Speed", speed);
@@ -251,7 +251,7 @@ public class DriveTrain_oldref extends SubsystemBase {
      * 
      * @param leftSpeed  Left motor speed
      * @param rightSpeed Right motor speed
-     */
+     
     public void tankDrive(final float leftSpeed, final float rightSpeed) {
         m_drive.tankDrive(leftSpeed, rightSpeed);
 
@@ -266,4 +266,4 @@ public class DriveTrain_oldref extends SubsystemBase {
     public void slowShift() {
         ssl_gear.set(false);
     }
-}
+} */
