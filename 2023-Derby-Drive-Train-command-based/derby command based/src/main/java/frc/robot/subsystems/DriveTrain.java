@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 // Drivetrain subsystem
@@ -14,9 +15,9 @@ public class DriveTrain extends SubsystemBase {
     private final CANSparkMax m_rFrontDrive_C15;
     private final CANSparkMax m_lRearDrive_C4;
     private final CANSparkMax m_rRearDrive_C6;
-    
-    public void tankDrive(float driveSpeed, float driveSpeed2) {
-    }
+
+    // Instantiate DifferentialDrive
+    private final DifferentialDrive m_diffDrive;
 
     // Drivetrain constructor
     public DriveTrain() {
@@ -58,5 +59,12 @@ public class DriveTrain extends SubsystemBase {
         m_lRearDrive_C4.burnFlash();
         m_rFrontDrive_C15.burnFlash();
         m_rRearDrive_C6.burnFlash();
+
+        // Initialize DifferentialDrive
+        m_diffDrive = new DifferentialDrive(m_lFrontDrive_C14, m_rFrontDrive_C15);
+    }
+
+    public void tankDrive(float lSpeed, float rSpeed) {
+        m_diffDrive.tankDrive(lSpeed, rSpeed);
     }
 }
