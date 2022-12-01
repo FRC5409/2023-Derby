@@ -17,7 +17,7 @@ import frc.robot.Constants.kDriveTrain;
 /**
  * DriveTrain subsystem
  */
-public class DriveTrain extends SubsystemBase {
+public class DriveTrain_oldref extends SubsystemBase {
     private final WPI_TalonSRX mot_leftFrontDrive;
     private final WPI_TalonSRX mot_leftRearDrive;
     private final WPI_TalonSRX mot_rightFrontDrive;
@@ -33,7 +33,7 @@ public class DriveTrain extends SubsystemBase {
     private final WPI_Pigeoon2 gyro_pigeon;
 
     /** Creates a new DriveTrain. */
-    public DriveTrain() {
+    public DriveTrain_oldref() {
         mot_leftFrontDrive = new WPI_TalonSRX(kDriveTrain.CANLeftDriveFront);
         // mot_leftFrontDrive.setInverted(true);
 
