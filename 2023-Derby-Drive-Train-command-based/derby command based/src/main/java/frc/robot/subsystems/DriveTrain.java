@@ -16,6 +16,10 @@ public class DriveTrain extends SubsystemBase {
 
     private final DifferentialDrive m_drive;
     private int m_driveMode = kDriveTrain.AADL_DRIVE;
+    public void tankDrive(int i, int j) {
+    }
+    public void tankDrive(float driveSpeed, float driveSpeed2) {
+    }
 
     
 }
