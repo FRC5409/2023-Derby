@@ -11,7 +11,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class DeafultDrive extends CommandBase {
-//  private final DeafultDrive sys_drive;
+private DeafultDrive sys_drive;
+private DeafultDrive joystick;
+
+  //  private final DeafultDrive sys_drive;
   /**
    * Creates a new ExampleCommand.
    *
@@ -19,7 +22,8 @@ public class DeafultDrive extends CommandBase {
    * @param m_subsystem 
    */
   public DeafultDrive(DeafultDrive DriveTrain, XboxController joystick) {
-//    sys_drive = DriveTrain;
+    sys_drive = DriveTrain;
+    
     
     // Use addRequirements() here to declare subsystem dependencies.
 //    addRequirements(DriveTrain);
@@ -33,11 +37,28 @@ public class DeafultDrive extends CommandBase {
   @Override
   public void execute() {
     //Left trigger(acceleration), right trigger(deceleration), LeftX
-//    double acceleration = m_joystick.getLeftTriggerAxis();
-//    double deceleration = m_joystick.getRightTriggerAxis();
+    double acceleration = joystick.getLeftTriggerAxis();
+    double deceleration = joystick.getRightTriggerAxis();
 
-//    double turnValue = m_joystick.getLeftX();
+    double turnValue = joystick.getLeftX();
 
+      sys_drive.aadlDrive(acceleration, deceleration, turnValue);
+
+  }
+
+  private double getLeftX() {
+    return 0;
+  }
+
+  private double getRightTriggerAxis() {
+    return 0;
+  }
+
+  private double getLeftTriggerAxis() {
+    return 0;
+  }
+
+  private void aadlDrive(double acceleration, double deceleration, double turnValue) {
   }
 
   // Called once the command ends or is interrupted.
