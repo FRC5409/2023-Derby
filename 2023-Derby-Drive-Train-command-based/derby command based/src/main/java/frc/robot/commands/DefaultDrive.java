@@ -7,6 +7,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
@@ -40,8 +41,11 @@ private XboxController joystick;
     //Left trigger(acceleration), right trigger(deceleration), LeftX
     double acceleration = joystick.getLeftTriggerAxis();
     double deceleration = joystick.getRightTriggerAxis();
-
     double turnValue = joystick.getLeftX();
+
+    SmartDashboard.putNumber("Front Acceleration", acceleration);
+    SmartDashboard.putNumber("Back Acceleration", deceleration);
+    SmartDashboard.putNumber("Turn Value", turnValue);
 
     aadlDrive(acceleration, deceleration, turnValue);
 
