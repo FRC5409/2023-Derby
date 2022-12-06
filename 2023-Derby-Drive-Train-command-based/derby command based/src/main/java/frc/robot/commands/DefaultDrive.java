@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /** An example command that uses an example subsystem. */
 public class DefaultDrive extends CommandBase {
 private DifferentialDrive sys_drive;
-private DefaultDrive joystick;
+private XboxController joystick;
 
   //  private final DefaultDrive sys_drive;
   /**
@@ -45,18 +45,6 @@ private DefaultDrive joystick;
 
     aadlDrive(acceleration, deceleration, turnValue);
 
-  }
-
-  private double getLeftX() {
-    return 0;
-  }
-
-  private double getRightTriggerAxis() {
-    return 0;
-  }
-
-  private double getLeftTriggerAxis() {
-    return 0;
   }
 
   public void aadlDrive(double fAccel, double rAccel, double turnVal) {
