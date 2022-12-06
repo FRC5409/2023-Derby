@@ -41,6 +41,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
   }
+
 }
 
   /**
@@ -48,14 +49,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-<<<<<<< HEAD
 //  public Command getAutonomousCommand() {
 //    return m_autonomousCommand;
 //  }
 //}
-=======
-  /* public Command getAutonomousCommand() {
-    return m_autonomousCommand; */
-}
->>>>>>> 9172745fbcaa9875fa659de918b2765dbcaa519a
 
