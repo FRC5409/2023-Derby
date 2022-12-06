@@ -6,22 +6,23 @@ package frc.robot.commands;
 
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
 /** An example command that uses an example subsystem. */
-public class DeafultDrive extends CommandBase {
-private DeafultDrive sys_drive;
-private DeafultDrive joystick;
+public class DefaultDrive extends CommandBase {
+private DifferentialDrive sys_drive;
+private DefaultDrive joystick;
 
-  //  private final DeafultDrive sys_drive;
+  //  private final DefaultDrive sys_drive;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    * @param m_subsystem 
    */
-  public DeafultDrive(DeafultDrive DriveTrain, XboxController joystick) {
+  public DefaultDrive(DifferentialDrive DriveTrain, XboxController joystick) {
     sys_drive = DriveTrain;
     
     
@@ -42,7 +43,7 @@ private DeafultDrive joystick;
 
     double turnValue = joystick.getLeftX();
 
-      sys_drive.aadlDrive(acceleration, deceleration, turnValue);
+    aadlDrive(acceleration, deceleration, turnValue);
 
   }
 
@@ -58,7 +59,8 @@ private DeafultDrive joystick;
     return 0;
   }
 
-  private void aadlDrive(double acceleration, double deceleration, double turnValue) {
+  public void aadlDrive(double fAccel, double rAccel, double turnVal) {
+    sys_drive.arcadeDrive(fAccel - rAccel, turnVal);
   }
 
   // Called once the command ends or is interrupted.
