@@ -13,7 +13,7 @@ import frc.robot.subsystems.DriveTrain;
 /** An example command that uses an example subsystem. */
 public class DefaultDrive extends CommandBase {
 private DriveTrain sys_drive;
-private XboxController joystick;
+private XboxController m_joystick;
 
   //  private final DefaultDrive sys_drive;
   /**
@@ -24,6 +24,8 @@ private XboxController joystick;
    */
   public DefaultDrive(DriveTrain driveTrain, XboxController joystick) {
     sys_drive = driveTrain;
+    m_joystick = joystick;
+
     
     
     // Use addRequirements() here to declare subsystem dependencies.
@@ -38,9 +40,9 @@ private XboxController joystick;
   @Override
   public void execute() {
     //Left trigger(acceleration), right trigger(deceleration), LeftX
-    double fAccel = joystick.getLeftTriggerAxis();
-    double rAccel = joystick.getRightTriggerAxis();
-    double turnVal = joystick.getLeftX();
+    double fAccel = m_joystick.getLeftTriggerAxis();
+    double rAccel = m_joystick.getRightTriggerAxis();
+    double turnVal = m_joystick.getLeftX();
 
     sys_drive.arcadeDrive(fAccel - rAccel, turnVal);
 
