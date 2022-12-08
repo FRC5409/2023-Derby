@@ -11,11 +11,14 @@ import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.SensorTimeBase;
 import com.ctre.phoenix.sensors.WPI_CANCoder;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
+import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ExternalFollower;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -46,6 +49,8 @@ public class DriveTrain extends SubsystemBase {
     private boolean m_allowShift = false;
     private long m_timeSinceShift = 0;
 
+    private final WPI_PigeonIMU m_gyro;
+    private final DifferentialDriveOdometry m_odometry;
 
     /** Creates a new DriveTrain. */
     public DriveTrain() {
@@ -109,6 +114,8 @@ public class DriveTrain extends SubsystemBase {
 
         SmartDashboard.putData(ssl_gear);
 
+        m_gyro = new WPI_PigeonIMU(Constants.kGyro.kID);
+        m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d());
     }
 
     /**
@@ -127,6 +134,8 @@ public class DriveTrain extends SubsystemBase {
         SmartDashboard.putNumber("CANCoder R Vel", getRightCANCoderVelocity());
         SmartDashboard.putNumber("CANCoder L Dist", getLeftDistance());
         SmartDashboard.putNumber("CANCoder R Dist", getRightDistance());
+
+        m_odometry.update(m_gyro.getRotation2d(), getLeftDistance(), getRightDistance());
     }
 
     @Override
@@ -316,4 +325,36 @@ public class DriveTrain extends SubsystemBase {
     public double getRightCANCoderVelocity() {
         return enc_rightCANCoder.getVelocity();
     }
+
+    public Pose2d getPose2d() {
+        return m_odometry.getPoseMeters();
+    }
+
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+        return new DifferentialDriveWheelSpeeds(getLeftCANCoderVelocity(), getRightCANCoderVelocity());
+    }
+
+    public void resetOdometry(Pose2d pose) {
+        resetCANCoders();
+        m_odometry.resetPosition(pose, m_gyro.getRotation2d());
+    }
+
+    public double getHeading() {
+        return m_gyro.getRotation2d().getDegrees();
+    }
+
+    public void zeroHeading() {
+        m_gyro.reset();
+    }
+
+    public double getTurnRate() {
+        return -m_gyro.getRate();
+    }
+
+    public void tankDriveVoltages(double lVolts, double rVolts) {
+        mot_leftDriveFront_sparkmax_C14.setVoltage(lVolts);
+        mot_rightDriveFront_sparkmax_C15.setVoltage(lVolts);
+        m_drive.feed();
+    }
+    
 }

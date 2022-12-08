@@ -47,11 +47,31 @@ public final class Constants {
 
         public static final int MOTOR_CURRENT_LIMIT = 60;
 
-        
+        public static class Characterization {
+            public static final double ksVolts = 0.13874;
+            public static final double kvVoltSecondsPerMeter = 5.5055;
+            public static final double kaVoltSecondsSquaredPerMeter = 0.34755;
+
+            public static final double kPDriveVel = 5.6098;
+
+            public static final double kTrackwidthMeters = 0.5;
+            public static final DifferentialDriveKinematics kDriveKinematics =
+                new DifferentialDriveKinematics(kTrackwidthMeters);
+
+            public static final double kMaxSpeedMetersPerSecond = 3;
+            public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+
+            public static final double kRamseteB = 2;
+            public static final double kRamseteZeta = 0.7;
+        }
     }
 
     public static class kPneumatics {
         public static final int PCMId = 0;
         public static final int MODULE = 0;
+    }
+
+    public static class kGyro {
+        public static final int kID = 23;
     }
 }
