@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CycleDriveMode;
 import frc.robot.commands.GearShift;
 import frc.robot.commands.SetManualCompressorFillOverride;
-import frc.robot.commands.SimpleDriveAuto;
 import frc.robot.commands.SwitchDrive;
+import frc.robot.commands.autonomous.FollowTrajectory;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -38,6 +38,8 @@ public class RobotContainer {
 
   // Define default command
   private final SwitchDrive cmd_defaultDrive;
+
+  private final FollowTrajectory cmd_followTrajectory;
 
   private SendableChooser<Command> m_compressorFillOverride = new SendableChooser<>();
   
@@ -67,6 +69,8 @@ public class RobotContainer {
 
     // Init commands
     cmd_defaultDrive = new SwitchDrive(sys_DriveTrain, m_joystick_main);
+
+    cmd_followTrajectory = new FollowTrajectory(sys_DriveTrain);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -110,6 +114,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new SimpleDriveAuto(sys_DriveTrain);
+    return cmd_followTrajectory;
   }
 }
