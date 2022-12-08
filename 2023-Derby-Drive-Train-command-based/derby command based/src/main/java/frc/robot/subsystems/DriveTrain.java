@@ -64,10 +64,12 @@ public class DriveTrain extends SubsystemBase {
         m_diffDrive = new DifferentialDrive(m_lFrontDrive_C14, m_rFrontDrive_C15);
     }
 
+    // Tank drive
     public void tankDrive(float lSpeed, float rSpeed) {
         m_diffDrive.tankDrive(lSpeed, rSpeed);
     }
 
+    // Arcade drive
     public void arcadeDrive(double speed, double rotation) {
         m_diffDrive.arcadeDrive(speed, rotation);
     }
