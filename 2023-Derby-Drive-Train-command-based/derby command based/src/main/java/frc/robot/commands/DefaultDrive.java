@@ -40,8 +40,8 @@ private XboxController m_joystick;
   @Override
   public void execute() {
     //Left trigger(acceleration), right trigger(deceleration), LeftX
-    double fAccel = m_joystick.getLeftTriggerAxis();
-    double rAccel = m_joystick.getRightTriggerAxis();
+    double fAccel = m_joystick.getRightTriggerAxis();
+    double rAccel = m_joystick.getLeftTriggerAxis();
     double turnVal = m_joystick.getLeftX();
 
     sys_drive.arcadeDrive(fAccel - rAccel, turnVal);
