@@ -47,27 +47,7 @@ public final class Constants {
 
         public static final int MOTOR_CURRENT_LIMIT = 60;
 
-        // TODO: Run characterization to get proper gains
-        public static final double ksVolts = 0.22;
-        public static final double kvVoltSecondsPerMeter = 1.98;
-        public static final double kaVoltSecondsSquaredPerMeter = 0.2;
-
-        // Example value only - as above, this must be tuned for your drive!
-        public static final double PDriveVel = 8.5;
-
-        // TODO: Find track width in meters
-        public static final double TrackwidthMeters = 0.69;
-        public static final DifferentialDriveKinematics DriveKinematics = new DifferentialDriveKinematics(
-                TrackwidthMeters);
-
-        public static final double MaxSpeedMetersPerSecond = 3;
-        public static final double MaxAccelerationMetersPerSecondSquared = 3;
-
-        // Reasonable baseline values for a RAMSETE follower in units of meters and
-        // seconds
-        public static final double RamseteB = 2;
-        public static final double RamseteZeta = 0.7;
-        public static final int CANPigeon = 0;
+        
     }
 
     public static class kPneumatics {

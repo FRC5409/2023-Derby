@@ -46,8 +46,6 @@ public class DriveTrain extends SubsystemBase {
     private boolean m_allowShift = false;
     private long m_timeSinceShift = 0;
 
-    // private final WPI_Pigeon2 gyro_pigeon;
-    // private final DifferentialDriveOdometry dOdometry;
 
     /** Creates a new DriveTrain. */
     public DriveTrain() {
@@ -102,50 +100,6 @@ public class DriveTrain extends SubsystemBase {
         enc_rightCANCoder.configAllSettings(enc_config);
 
         /**
-         * ------------------ RIGHT MOTOTRS ------------------
-         * Declerations: 
-         */
-        // right_FrontTalon = new WPI_TalonSRX(Constants.kDriveTrain.CAN_RIGHT_FRONT_TALON); // Has encoder
-        // right_FrontTalon.setInverted(false);
-
-        // right_BackTalon = new WPI_TalonSRX(kDriveTrain.CAN_RIGHT_BACK_TALON);
-        // right_BackTalon.follow(right_FrontTalon);
-        // right_BackTalon.setInverted(InvertType.FollowMaster);
-
-        // // Configurations: 
-        // right_BackTalon.configFactoryDefault();
-        // right_FrontTalon.configFactoryDefault();
-
-        // right_FrontTalon.configPeakCurrentLimit(kDriveTrain.MOTOR_CURRENT_LIMIT);
-        // right_BackTalon.configPeakCurrentLimit(kDriveTrain.MOTOR_CURRENT_LIMIT);
-
-        // right_FrontTalon.setNeutralMode(NeutralMode.Brake);
-        // right_BackTalon.setNeutralMode(NeutralMode.Brake);
-
-        // /**
-        //  * ------------------ LEFT MOTOTRS ------------------
-        //  * Declerations: 
-        //  */
-        // left_FrontTalon = new WPI_TalonSRX(kDriveTrain.CAN_LEFT_FRONT_TALON);
-        // left_FrontTalon.setInverted(true);
-
-        // left_BackTalon = new WPI_TalonSRX(kDriveTrain.CAN_LEFT_BACK_TALON); // Back left talon (follower, has encoder)
-        // left_BackTalon.follow(left_FrontTalon);
-        // left_BackTalon.setInverted(InvertType.FollowMaster);
-
-        // // Configurations:
-        // left_FrontTalon.configFactoryDefault();
-        // left_BackTalon.configFactoryDefault();
-
-        // left_FrontTalon.configPeakCurrentLimit(kDriveTrain.MOTOR_CURRENT_LIMIT);
-        // left_BackTalon.configPeakCurrentLimit(kDriveTrain.MOTOR_CURRENT_LIMIT);
-
-        // left_FrontTalon.setNeutralMode(NeutralMode.Brake);
-        // left_BackTalon.setNeutralMode(NeutralMode.Brake);
-
-        // mot_rightFrontDrive.getStatorCurrent();
-
-        /**
          * ------------------ DIFFERENTIAL DRIVE ------------------
          * Decleration: 
          */
@@ -155,8 +109,6 @@ public class DriveTrain extends SubsystemBase {
 
         SmartDashboard.putData(ssl_gear);
 
-        // gyro_pigeon = new WPI_Pigeon2(Constants.kDriveTrain.CANPigeon);
-        // dOdometry = new DifferentialDriveOdometry(gyro_pigeon.getRotation2d());
     }
 
     /**
@@ -164,28 +116,10 @@ public class DriveTrain extends SubsystemBase {
      * dashboard data.
      */
     public void periodic() {
-        // double vel = getSensorVelocity();
-
-        // long currentTime = System.currentTimeMillis();
-
-        // if (currentTime - m_timeSinceShift >= 1000) {
-        // if (Math.abs(vel) >= Constants.kDriveTrain.UP_SHIFT && !ssl_gear.get()) {
-        // fastShift();
-        // } else if (Math.abs(vel) <= Constants.kDriveTrain.DOWN_SHIFT &&
-        // ssl_gear.get()) {
-        // slowShift();
-        // }
-
-        // m_timeSinceShift = currentTime;
-        // }
 
         displayDriveModeData();
-        //displayEncoderData();
 
         SmartDashboard.putString("Drive Mode", getDriveModeName());
-
-        // dOdometry.update(gyro_pigeon.getRotation2d(), mot_leftFrontDrive.getSelectedSensorPosition(),
-        //         mot_rightFrontDrive.getSelectedSensorPosition());
 
 
         // CANCoders
@@ -296,17 +230,6 @@ public class DriveTrain extends SubsystemBase {
         }
     }
 
-    // /**
-    //  * This method will display encoder data.
-    //  */
-    // public void displayEncoderData() {
-    //     SmartDashboard.putNumber("MOT_RB_VEL", right_BackTalon.getSelectedSensorVelocity());
-    //     SmartDashboard.putNumber("MOT_RB_POS", right_BackTalon.getSelectedSensorPosition());
-
-    //     SmartDashboard.putNumber("MOT_LB_VEL", left_BackTalon.getSelectedSensorVelocity());
-    //     SmartDashboard.putNumber("MOT_LB_POS", left_BackTalon.getSelectedSensorPosition());
-    // }
-
     /**
      * This method will move the robot in a direction based on the given parameters
      * 
@@ -393,26 +316,4 @@ public class DriveTrain extends SubsystemBase {
     public double getRightCANCoderVelocity() {
         return enc_rightCANCoder.getVelocity();
     }
-  
-    // /**
-    //  * Returns the current wheel speeds of the robot in m/s.
-    //  *
-    //  * @return The current wheel speeds.
-    //  */
-    // public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    //     return new DifferentialDriveWheelSpeeds(left_FrontTalon.getSelectedSensorVelocity() * 10,
-    //             right_FrontTalon.getSelectedSensorVelocity() * 10);
-    // }
-
-    // /**
-    //  * This method will reset the encoders
-    //  */
-    // public void resetEncoders() {
-    //     left_FrontTalon.configFactoryDefault();
-    //     right_FrontTalon.configFactoryDefault();
-    // }
-  
-    // public void resetOdometery() {
-    //     resetEncoders();
-    // }
 }
