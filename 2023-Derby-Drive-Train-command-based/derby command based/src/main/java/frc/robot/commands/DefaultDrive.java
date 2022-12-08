@@ -7,13 +7,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.DriveTrain;
 
 
 /** An example command that uses an example subsystem. */
 public class DefaultDrive extends CommandBase {
-private DifferentialDrive sys_drive;
+private DriveTrain sys_drive;
 private XboxController joystick;
 
   //  private final DefaultDrive sys_drive;
@@ -23,8 +23,8 @@ private XboxController joystick;
    * @param subsystem The subsystem used by this command.
    * @param m_subsystem 
    */
-  public DefaultDrive(DifferentialDrive DriveTrain, XboxController joystick) {
-    sys_drive = DriveTrain;
+  public DefaultDrive(DriveTrain driveTrain, XboxController joystick) {
+    sys_drive = driveTrain;
     
     
     // Use addRequirements() here to declare subsystem dependencies.
@@ -41,11 +41,8 @@ private XboxController joystick;
     //Left trigger(acceleration), right trigger(deceleration), LeftX
     double acceleration = joystick.getLeftTriggerAxis();
     double deceleration = joystick.getRightTriggerAxis();
-    double turnValue = joystick.getLeftX();
 
-    SmartDashboard.putNumber("Front Acceleration", acceleration);
-    SmartDashboard.putNumber("Back Acceleration", deceleration);
-    SmartDashboard.putNumber("Turn Value", turnValue);
+    double turnValue = joystick.getLeftX();
 
     aadlDrive(acceleration, deceleration, turnValue);
 
