@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DefaultDrive;
+import frc.robot.commands.GearShift;
 //import frc.robot.commands.DriveStraight;
 import frc.robot.subsystems.DriveTrain;
 
@@ -61,6 +62,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    but_main_RBumper.whenPressed(new GearShift(sys_drive, true));
+    but_main_LBumper.whenPressed(new GearShift(sys_drive, false));
   }
 
 }
