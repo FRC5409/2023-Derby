@@ -311,19 +311,19 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public double getLeftDistance() {
-        return -enc_leftCANCoder.getPosition();
+        return -enc_leftCANCoder.getPosition() / 1000;
     }
 
     public double getRightDistance() {
-        return enc_rightCANCoder.getPosition();
+        return enc_rightCANCoder.getPosition() / 1000;
     }
 
     public double getLeftCANCoderVelocity() {
-        return -enc_leftCANCoder.getVelocity();
+        return -enc_leftCANCoder.getVelocity() / 1000;
     }
 
     public double getRightCANCoderVelocity() {
-        return enc_rightCANCoder.getVelocity();
+        return enc_rightCANCoder.getVelocity() / 1000;
     }
 
     public Pose2d getPose2d() {
@@ -353,7 +353,7 @@ public class DriveTrain extends SubsystemBase {
 
     public void tankDriveVoltages(double lVolts, double rVolts) {
         mot_leftDriveFront_sparkmax_C14.setVoltage(lVolts);
-        mot_rightDriveFront_sparkmax_C15.setVoltage(lVolts);
+        mot_rightDriveFront_sparkmax_C15.setVoltage(rVolts);
         m_drive.feed();
     }
     

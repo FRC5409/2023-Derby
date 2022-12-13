@@ -4,6 +4,18 @@
 
 package frc.robot;
 
+import java.util.List;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
@@ -13,10 +25,10 @@ import frc.robot.commands.CycleDriveMode;
 import frc.robot.commands.GearShift;
 import frc.robot.commands.SetManualCompressorFillOverride;
 import frc.robot.commands.SwitchDrive;
-import frc.robot.commands.autonomous.FollowTrajectory;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -39,10 +51,8 @@ public class RobotContainer {
   // Define default command
   private final SwitchDrive cmd_defaultDrive;
 
-  private final FollowTrajectory cmd_followTrajectory;
-
   private SendableChooser<Command> m_compressorFillOverride = new SendableChooser<>();
-  
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -64,13 +74,11 @@ public class RobotContainer {
 
     // Init sub systems
     sys_Pneumatics = new Pneumatics();
-    
+
     sys_DriveTrain = new DriveTrain();
 
     // Init commands
     cmd_defaultDrive = new SwitchDrive(sys_DriveTrain, m_joystick_main);
-
-    cmd_followTrajectory = new FollowTrajectory(sys_DriveTrain);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -79,8 +87,10 @@ public class RobotContainer {
     System.out.println(RobotBase.isReal() ? "Entering controlled robot." : "Entering simulated environment.");
 
     // Configure sendable data
-    // m_compressorFillOverride.setDefaultOption("Off", new SetManualCompressorFillOverride(sys_Pneumatics, false));
-    // m_compressorFillOverride.addOption("On", new SetManualCompressorFillOverride(sys_Pneumatics, true));
+    // m_compressorFillOverride.setDefaultOption("Off", new
+    // SetManualCompressorFillOverride(sys_Pneumatics, false));
+    // m_compressorFillOverride.addOption("On", new
+    // SetManualCompressorFillOverride(sys_Pneumatics, true));
 
     SmartDashboard.putData(m_compressorFillOverride);
   }
@@ -113,7 +123,55 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return cmd_followTrajectory;
+
+    // Create a voltage constraint to ensure we don't accelerate too fast
+    DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+        new SimpleMotorFeedforward(Constants.kDriveTrain.kCharacterization.ksVolts,
+            Constants.kDriveTrain.kCharacterization.kvVoltSecondsPerMeter,
+            Constants.kDriveTrain.kCharacterization.kaVoltSecondsSquaredPerMeter),
+        Constants.kDriveTrain.kCharacterization.kDriveKinematics,
+        Constants.kAuto.kMaxVoltage);
+
+    TrajectoryConfig config = new TrajectoryConfig(Constants.kDriveTrain.kCharacterization.kMaxSpeedMetersPerSecond,
+        Constants.kDriveTrain.kCharacterization.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.kDriveTrain.kCharacterization.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
+
+    Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(0, 0, new Rotation2d(0)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(
+            new Translation2d(1, 1),
+            new Translation2d(2, -1)),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(3, 0, new Rotation2d(0)),
+        // Pass config
+        config);
+
+    // Create Ramsete Command
+    sys_DriveTrain.resetOdometry(trajectory.getInitialPose());
+
+    RamseteCommand ramseteCommand = new RamseteCommand(
+        trajectory,
+        sys_DriveTrain::getPose2d,
+        new RamseteController(Constants.kDriveTrain.kCharacterization.kRamseteB,
+            Constants.kDriveTrain.kCharacterization.kRamseteZeta),
+
+        new SimpleMotorFeedforward(Constants.kDriveTrain.kCharacterization.ksVolts,
+            Constants.kDriveTrain.kCharacterization.kvVoltSecondsPerMeter,
+            Constants.kDriveTrain.kCharacterization.kaVoltSecondsSquaredPerMeter),
+        Constants.kDriveTrain.kCharacterization.kDriveKinematics,
+        sys_DriveTrain::getWheelSpeeds,
+        new PIDController(Constants.kDriveTrain.kCharacterization.kPDriveVel, 0, 0),
+        new PIDController(Constants.kDriveTrain.kCharacterization.kPDriveVel, 0, 0),
+        // RamseteCommand passes volts to the callback
+        sys_DriveTrain::tankDriveVoltages,
+        sys_DriveTrain);
+
+    return ramseteCommand.andThen(() -> sys_DriveTrain.tankDriveVoltages(0, 0));
+
   }
 }
