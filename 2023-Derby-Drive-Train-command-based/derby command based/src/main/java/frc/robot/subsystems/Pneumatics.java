@@ -15,12 +15,4 @@ public class Pneumatics extends SubsystemBase {
     public Pneumatics() {
         gs_compressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
     }
-
-    public void enableAnalog() {
-        gs_compressor.enableAnalog(90, 120);
-    }
-
-    public void disable() {
-        gs_compressor.disable();
-    }
 }

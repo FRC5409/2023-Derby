@@ -32,7 +32,7 @@ public class GearShift extends CommandBase {
 
   @Override
   public void execute() {
-
+    
   }
 
   @Override
