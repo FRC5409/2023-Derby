@@ -31,6 +31,11 @@ public class GearShift extends CommandBase {
   }
 
   @Override
+  public void execute() {
+
+  }
+
+  @Override
   public void end(boolean interrupted) {
 
   }
