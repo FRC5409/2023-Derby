@@ -73,4 +73,13 @@ public class DriveTrain extends SubsystemBase {
     public void arcadeDrive(double speed, double rotation) {
         m_diffDrive.arcadeDrive(speed, rotation);
     }
+
+
+    public void fastShift() {
+
+    }
+
+    public void slowShift() {
+        
+    }
 }
