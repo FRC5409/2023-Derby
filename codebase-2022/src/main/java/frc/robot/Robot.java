@@ -4,12 +4,19 @@
 
 package frc.robot;
 
+import java.io.IOException;
+import java.nio.file.Path;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.MjpegServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoMode.PixelFormat;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -28,6 +35,10 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  private String trajectoryJSON;
+  private Path trajectoryPath;
+  private Trajectory trajectory = new Trajectory();
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any
@@ -35,13 +46,26 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
+    // Get trajectories
+    try {
+      trajectoryJSON = "output/Unnamed.wpilib.json";
+      trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+      trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+    }
+
+
+
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    m_robotContainer = new RobotContainer(trajectory);
     // CameraServer.startAutomaticCapture("Primary Camera", 2);
     // CameraServer.startAutomaticCapture();
     // CameraServer.startAutomaticCapture("Primary Camera", 0);
+
   }
 
   /**

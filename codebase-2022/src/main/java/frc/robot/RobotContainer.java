@@ -53,10 +53,12 @@ public class RobotContainer {
 
   private SendableChooser<Command> m_compressorFillOverride = new SendableChooser<>();
 
+  private final Trajectory m_trajectory;
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
-  public RobotContainer() {
+  public RobotContainer(Trajectory trajectory) {
     // Init controller
     m_joystick_main = new XboxController(0);
 
@@ -93,6 +95,8 @@ public class RobotContainer {
     // SetManualCompressorFillOverride(sys_Pneumatics, true));
 
     SmartDashboard.putData(m_compressorFillOverride);
+
+    m_trajectory = trajectory;
   }
 
   /**
@@ -132,30 +136,30 @@ public class RobotContainer {
         Constants.kDriveTrain.kCharacterization.kDriveKinematics,
         Constants.kAuto.kMaxVoltage);
 
-    TrajectoryConfig config = new TrajectoryConfig(Constants.kDriveTrain.kCharacterization.kMaxSpeedMetersPerSecond,
-        Constants.kDriveTrain.kCharacterization.kMaxAccelerationMetersPerSecondSquared)
-            // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(Constants.kDriveTrain.kCharacterization.kDriveKinematics)
-            // Apply the voltage constraint
-            .addConstraint(autoVoltageConstraint);
+    // TrajectoryConfig config = new TrajectoryConfig(Constants.kDriveTrain.kCharacterization.kMaxSpeedMetersPerSecond,
+    //     Constants.kDriveTrain.kCharacterization.kMaxAccelerationMetersPerSecondSquared)
+    //         // Add kinematics to ensure max speed is actually obeyed
+    //         .setKinematics(Constants.kDriveTrain.kCharacterization.kDriveKinematics)
+    //         // Apply the voltage constraint
+    //         .addConstraint(autoVoltageConstraint);
 
-    Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
-        // Pass through these two interior waypoints, making an 's' curve path
-        List.of(
-            new Translation2d(1, 1),
-            new Translation2d(2, -1)),
-        // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(3, 0, new Rotation2d(0)),
-        // Pass config
-        config);
+    // Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+    //     // Start at the origin facing the +X direction
+    //     new Pose2d(0, 0, new Rotation2d(0)),
+    //     // Pass through these two interior waypoints, making an 's' curve path
+    //     List.of(
+    //         new Translation2d(1, 1),
+    //         new Translation2d(2, -1)),
+    //     // End 3 meters straight ahead of where we started, facing forward
+    //     new Pose2d(3, 0, new Rotation2d(0)),
+    //     // Pass config
+    //     config);
 
     // Create Ramsete Command
-    sys_DriveTrain.resetOdometry(trajectory.getInitialPose());
+    sys_DriveTrain.resetOdometry(m_trajectory.getInitialPose());
 
     RamseteCommand ramseteCommand = new RamseteCommand(
-        trajectory,
+        m_trajectory,
         sys_DriveTrain::getPose2d,
         new RamseteController(Constants.kDriveTrain.kCharacterization.kRamseteB,
             Constants.kDriveTrain.kCharacterization.kRamseteZeta),
