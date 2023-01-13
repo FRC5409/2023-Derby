@@ -45,7 +45,7 @@ public class Drivetrain extends SubsystemBase {
         mot_rightFront.setSmartCurrentLimit(kDrivetrain.currentLimit);
         mot_rightRear.setSmartCurrentLimit(kDrivetrain.currentLimit);
 
-        // rampRate(kDrivetrain.rampRate);
+        rampRate(kDrivetrain.rampRate);
 
         mot_leftFront.burnFlash();
         mot_leftRear.burnFlash();

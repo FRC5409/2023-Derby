@@ -18,7 +18,7 @@ public final class Constants {
 
     public static final int currentLimit = 60;
 
-    public static final double rampRate = 2;
+    public static final double rampRate = 0.3;
 
     public static class kMotors {
       public static final int leftFrontId = 6;
