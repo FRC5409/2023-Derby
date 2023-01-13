@@ -1,8 +1,8 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -10,10 +10,10 @@ import frc.robot.Constants.kDrivetrain;
 
 public class Drivetrain extends SubsystemBase {
 
-    private CANSparkMax mot_leftFront;
-    private CANSparkMax mot_leftRear;
-    private CANSparkMax mot_rightFront;
-    private CANSparkMax mot_rightRear;
+    private final CANSparkMax mot_leftFront;
+    private final CANSparkMax mot_leftRear;
+    private final CANSparkMax mot_rightFront;
+    private final CANSparkMax mot_rightRear;
 
     private final DifferentialDrive m_drive;
 
@@ -28,18 +28,29 @@ public class Drivetrain extends SubsystemBase {
         mot_rightFront.restoreFactoryDefaults();
         mot_rightRear.restoreFactoryDefaults();
 
+        mot_rightRear.follow(mot_leftFront);
+        mot_leftRear.follow(mot_rightFront);
+
         mot_rightFront.setInverted(true);
         mot_rightRear.setInverted(true);
+
+        mot_leftFront.setIdleMode(IdleMode.kBrake);
+        mot_rightFront.setIdleMode(IdleMode.kBrake);
+        mot_leftRear.setIdleMode(IdleMode.kBrake);
+        mot_rightRear.setIdleMode(IdleMode.kBrake);
+
 
         mot_leftFront.setSmartCurrentLimit(kDrivetrain.currentLimit);
         mot_leftRear.setSmartCurrentLimit(kDrivetrain.currentLimit);
         mot_rightFront.setSmartCurrentLimit(kDrivetrain.currentLimit);
         mot_rightRear.setSmartCurrentLimit(kDrivetrain.currentLimit);
 
-        rampRate(kDrivetrain.rampRate);
+        // rampRate(kDrivetrain.rampRate);
 
-        mot_leftRear.follow(mot_leftFront);
-        mot_rightRear.follow(mot_rightFront);
+        mot_leftFront.burnFlash();
+        mot_leftRear.burnFlash();
+        mot_rightFront.burnFlash();
+        mot_rightRear.burnFlash();
 
         m_drive = new DifferentialDrive(mot_leftFront, mot_rightFront);
     }

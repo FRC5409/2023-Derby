@@ -14,21 +14,17 @@ package frc.robot;
  */
 public final class Constants {
 
-  public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
-  }
-
   public static class kDrivetrain {
 
     public static final int currentLimit = 60;
 
-    public static final double rampRate = 0.5;
+    public static final double rampRate = 2;
 
     public static class kMotors {
-      public static final int leftFrontId = 1;
-      public static final int leftRearId = 2;
-      public static final int rightFrontId = 2;
-      public static final int rightRearId = 3;
+      public static final int leftFrontId = 6;
+      public static final int leftRearId = 14;
+      public static final int rightFrontId = 4;
+      public static final int rightRearId = 15;
     }
   }
 }
