@@ -3,10 +3,12 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.kDrivetrain;
+import frc.robot.Constants.kPneumatics;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -16,6 +18,8 @@ public class Drivetrain extends SubsystemBase {
     private final CANSparkMax mot_rightRear;
 
     private final DifferentialDrive m_drive;
+
+    private final Solenoid gearShift;
 
     public Drivetrain() {
         mot_leftFront = new CANSparkMax(kDrivetrain.kMotors.leftFrontId, MotorType.kBrushless);
@@ -34,16 +38,16 @@ public class Drivetrain extends SubsystemBase {
         mot_rightFront.setInverted(true);
         mot_rightRear.setInverted(true);
 
-        mot_leftFront.setIdleMode(IdleMode.kBrake);
-        mot_rightFront.setIdleMode(IdleMode.kBrake);
-        mot_leftRear.setIdleMode(IdleMode.kBrake);
-        mot_rightRear.setIdleMode(IdleMode.kBrake);
+        mot_leftFront.setIdleMode(IdleMode.kCoast);
+        mot_rightFront.setIdleMode(IdleMode.kCoast);
+        mot_leftRear.setIdleMode(IdleMode.kCoast);
+        mot_rightRear.setIdleMode(IdleMode.kCoast);
 
 
-        mot_leftFront.setSmartCurrentLimit(kDrivetrain.currentLimit);
-        mot_leftRear.setSmartCurrentLimit(kDrivetrain.currentLimit);
-        mot_rightFront.setSmartCurrentLimit(kDrivetrain.currentLimit);
-        mot_rightRear.setSmartCurrentLimit(kDrivetrain.currentLimit);
+        // mot_leftFront.setSmartCurrentLimit(kDrivetrain.currentLimit);
+        // mot_leftRear.setSmartCurrentLimit(kDrivetrain.currentLimit);
+        // mot_rightFront.setSmartCurrentLimit(kDrivetrain.currentLimit);
+        // mot_rightRear.setSmartCurrentLimit(kDrivetrain.currentLimit);
 
         rampRate(kDrivetrain.rampRate);
 
@@ -53,6 +57,8 @@ public class Drivetrain extends SubsystemBase {
         mot_rightRear.burnFlash();
 
         m_drive = new DifferentialDrive(mot_leftFront, mot_rightFront);
+
+        gearShift = new Solenoid(kPneumatics.pneumaticsModule, kPneumatics.gearShiftPCMId);
     }
 
     @Override
@@ -79,6 +85,10 @@ public class Drivetrain extends SubsystemBase {
 
     public void defaultDrive(double forwardSpeed, double rotationalSpeed) {
         m_drive.arcadeDrive(forwardSpeed, rotationalSpeed);
+    }
+
+    public void switchGear(boolean fast) {
+        gearShift.set(fast);
     }
 
 }

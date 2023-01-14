@@ -5,7 +5,9 @@
 package frc.robot;
 
 import frc.robot.commands.DefaultDrive;
+import frc.robot.commands.GearShift;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -19,9 +21,12 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain sys_drivetrain = new Drivetrain();
+  // private final Pneumatics sys_pneumatics = new Pneumatics();
   private final CommandXboxController sys_joystick = new CommandXboxController(0);
 
   private final DefaultDrive cmd_defaultDrive = new DefaultDrive(sys_drivetrain, sys_joystick);
+  private final GearShift cmd_fastGear = new GearShift(sys_drivetrain, true);
+  private final GearShift cmd_slowGear = new GearShift(sys_drivetrain, false);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -41,7 +46,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    
+    sys_joystick.leftBumper().onTrue(cmd_fastGear).onFalse(cmd_slowGear);
   }
 
   /**
