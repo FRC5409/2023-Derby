@@ -38,18 +38,18 @@ public class Drivetrain extends SubsystemBase {
         mot_rightFront.setInverted(true);
         mot_rightRear.setInverted(true);
 
-        mot_leftFront.setIdleMode(IdleMode.kCoast);
-        mot_rightFront.setIdleMode(IdleMode.kCoast);
-        mot_leftRear.setIdleMode(IdleMode.kCoast);
-        mot_rightRear.setIdleMode(IdleMode.kCoast);
+        mot_leftFront.setIdleMode(IdleMode.kBrake);
+        mot_rightFront.setIdleMode(IdleMode.kBrake);
+        mot_leftRear.setIdleMode(IdleMode.kBrake);
+        mot_rightRear.setIdleMode(IdleMode.kBrake);
 
 
-        // mot_leftFront.setSmartCurrentLimit(kDrivetrain.currentLimit);
-        // mot_leftRear.setSmartCurrentLimit(kDrivetrain.currentLimit);
-        // mot_rightFront.setSmartCurrentLimit(kDrivetrain.currentLimit);
-        // mot_rightRear.setSmartCurrentLimit(kDrivetrain.currentLimit);
+        mot_leftFront.setSmartCurrentLimit(kDrivetrain.currentLimit);
+        mot_leftRear.setSmartCurrentLimit(kDrivetrain.currentLimit);
+        mot_rightFront.setSmartCurrentLimit(kDrivetrain.currentLimit);
+        mot_rightRear.setSmartCurrentLimit(kDrivetrain.currentLimit);
 
-        rampRate(kDrivetrain.rampRate);
+        // rampRate(kDrivetrain.rampRate);
 
         mot_leftFront.burnFlash();
         mot_leftRear.burnFlash();
@@ -88,7 +88,9 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void switchGear(boolean fast) {
+        System.out.println("Speed: " + fast);
         gearShift.set(fast);
+        // gearShift.toggle();
     }
 
 }

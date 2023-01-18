@@ -10,14 +10,14 @@ public class Pneumatics extends SubsystemBase {
     private final Compressor m_compressor;
 
     public Pneumatics() {
-        m_compressor = new Compressor(kPneumatics.module, kPneumatics.pneumaticsModule);
+        m_compressor = new Compressor(kPneumatics.compressorCANID, kPneumatics.pneumaticsModule);
         enableCompressor(); 
     }
 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        SmartDashboard.putNumber("Compressor Pressure: ", getCompressorPressure());
+        // SmartDashboard.putNumber("Compressor Pressure: ", getCompressorPressure());
         SmartDashboard.putBoolean("Is Enabled", m_compressor.isEnabled());
     }
 
@@ -37,8 +37,8 @@ public class Pneumatics extends SubsystemBase {
         m_compressor.disable();
     }
 
-    public double getCompressorPressure() {
-        return m_compressor.getPressure();
-    }
+    // public double getCompressorPressure() {
+    //     return m_compressor.getPressure();
+    // }
 
 }

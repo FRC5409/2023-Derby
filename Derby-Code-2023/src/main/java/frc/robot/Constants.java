@@ -36,7 +36,7 @@ public final class Constants {
     public static final int minPressure = 60;
     public static final int maxPressure = 110;
 
-    public static final int module = 12;
+    public static final int compressorCANID = 12;
     public static final int gearShiftPCMId = 0;
   }
 }

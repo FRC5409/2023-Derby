@@ -21,7 +21,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain sys_drivetrain = new Drivetrain();
-  // private final Pneumatics sys_pneumatics = new Pneumatics();
+  private final Pneumatics sys_pneumatics = new Pneumatics();
   private final CommandXboxController sys_joystick = new CommandXboxController(0);
 
   private final DefaultDrive cmd_defaultDrive = new DefaultDrive(sys_drivetrain, sys_joystick);

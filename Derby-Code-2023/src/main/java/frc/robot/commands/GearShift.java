@@ -21,6 +21,7 @@ public class GearShift extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        System.out.println(fast);
         m_drivetrain.switchGear(fast);
     }
 
