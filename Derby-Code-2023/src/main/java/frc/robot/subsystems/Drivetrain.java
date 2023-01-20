@@ -21,6 +21,8 @@ public class Drivetrain extends SubsystemBase {
 
     private final Solenoid gearShift;
 
+    private int currentJoystick = 0;
+
     public Drivetrain() {
         mot_leftFront = new CANSparkMax(kDrivetrain.kMotors.leftFrontId, MotorType.kBrushless);
         mot_leftRear = new CANSparkMax(kDrivetrain.kMotors.leftRearId, MotorType.kBrushless);
@@ -91,6 +93,14 @@ public class Drivetrain extends SubsystemBase {
         System.out.println("Speed: " + fast);
         gearShift.set(fast);
         // gearShift.toggle();
+    }
+
+    public int getCurrentJoystick() {
+        return currentJoystick;
+    }
+
+    public void changeJoystick() {
+        currentJoystick = (currentJoystick + 1) % 2;
     }
 
 }

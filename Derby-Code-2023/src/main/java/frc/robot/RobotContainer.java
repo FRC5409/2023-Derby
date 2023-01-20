@@ -8,6 +8,10 @@ import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.GearShift;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Pneumatics;
+
+import java.util.ArrayList;
+
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -22,9 +26,12 @@ public class RobotContainer {
   // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain sys_drivetrain = new Drivetrain();
   private final Pneumatics sys_pneumatics = new Pneumatics();
-  private final CommandXboxController sys_joystick = new CommandXboxController(0);
+  private final CommandXboxController sys_joystickMain = new CommandXboxController(0);
+  private final CommandXboxController sys_joystickSecondary = new CommandXboxController(1);
 
-  private final DefaultDrive cmd_defaultDrive = new DefaultDrive(sys_drivetrain, sys_joystick);
+  private final ArrayList<CommandXboxController> sys_joysticks = new ArrayList<CommandXboxController>();
+
+  private final DefaultDrive cmd_defaultDrive = new DefaultDrive(sys_drivetrain, sys_joysticks);
   private final GearShift cmd_fastGear = new GearShift(sys_drivetrain, true);
   private final GearShift cmd_slowGear = new GearShift(sys_drivetrain, false);
 
@@ -46,7 +53,9 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    sys_joystick.leftBumper().onTrue(cmd_fastGear).onFalse(cmd_slowGear);
+    sys_joystickMain.leftBumper().onTrue(cmd_fastGear).onFalse(cmd_slowGear);
+
+    sys_joystickSecondary.start().onTrue(Commands.runOnce(() -> sys_drivetrain.changeJoystick()));
   }
 
   /**
