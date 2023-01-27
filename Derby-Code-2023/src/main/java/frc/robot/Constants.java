@@ -39,4 +39,9 @@ public final class Constants {
     public static final int compressorCANID = 12;
     public static final int gearShiftPCMId = 0;
   }
+
+  public static class kLimelight {
+    public static final int heightOffFloor = 15; //cm
+    public static final int angle = 0; //degrees
+  }
 }
