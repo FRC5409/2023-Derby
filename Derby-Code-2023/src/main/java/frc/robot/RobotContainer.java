@@ -6,8 +6,10 @@ package frc.robot;
 
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.GearShift;
+import frc.robot.commands.LimeLightCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.Limelight;
 
 import java.util.ArrayList;
 
@@ -22,18 +24,21 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final Drivetrain sys_drivetrain = new Drivetrain();
-  private final Pneumatics sys_pneumatics = new Pneumatics();
+  //controller
   private final CommandXboxController sys_joystickMain = new CommandXboxController(0);
   private final CommandXboxController sys_joystickSecondary = new CommandXboxController(1);
-
   private final ArrayList<CommandXboxController> sys_joysticks = new ArrayList<CommandXboxController>();
+  
+  // Subsystems
+  private final Drivetrain sys_drivetrain = new Drivetrain();
+  private final Pneumatics sys_pneumatics = new Pneumatics();
+  private final Limelight sys_Limelight = new Limelight();
 
+  //commands
   private final DefaultDrive cmd_defaultDrive = new DefaultDrive(sys_drivetrain, sys_joysticks);
   private final GearShift cmd_fastGear = new GearShift(sys_drivetrain, true);
   private final GearShift cmd_slowGear = new GearShift(sys_drivetrain, false);
+  private final LimeLightCommand cmd_limeLight = new LimeLightCommand(sys_Limelight);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -54,8 +59,9 @@ public class RobotContainer {
    */
   private void configureBindings() {
     sys_joystickMain.leftBumper().onTrue(cmd_fastGear).onFalse(cmd_slowGear);
-
     sys_joystickSecondary.start().onTrue(Commands.runOnce(() -> sys_drivetrain.changeJoystick()));
+
+    sys_joystickMain.povRight().onTrue(cmd_limeLight);
   }
 
   /**
