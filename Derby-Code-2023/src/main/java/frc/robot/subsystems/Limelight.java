@@ -41,10 +41,10 @@ public class Limelight extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public double fieldSpacePosition(){
+  public double[] fieldSpacePosition(){
     //get the position of the robot in 3d fieldspace as calculated by fiducial targets
-    double robotPos = NetworkTableInstance.getDefault().getTable("limelight").getEntry("t6r_fs").getDouble(0); //TEMPORARY
-    positionTab.setDouble(robotPos);
+    double[] robotPos = NetworkTableInstance.getDefault().getTable("limelight").getEntry("t6r_fs").getDoubleArray(0); //TEMPORARY
+    positionTab.setDouble(robotPos[0]); //testing
     return robotPos;
   }
 }
