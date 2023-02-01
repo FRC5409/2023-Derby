@@ -9,9 +9,9 @@ import frc.robot.subsystems.Drivetrain;
 public class DefaultDrive extends CommandBase {
 
     private final Drivetrain m_drivetrain;
-    private final ArrayList<CommandXboxController> m_joysticks;
+    private final CommandXboxController m_joysticks;
 
-    public DefaultDrive(Drivetrain drivetrain, ArrayList<CommandXboxController> joysticks) {
+    public DefaultDrive(Drivetrain drivetrain, CommandXboxController joysticks) {
         // Use addRequirements() here to declare subsystem dependencies.
         m_drivetrain = drivetrain;
         m_joysticks = joysticks;
@@ -27,8 +27,10 @@ public class DefaultDrive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double forwardSpeed = m_joysticks.get(m_drivetrain.getCurrentJoystick()).getRightTriggerAxis() - m_joysticks.get(m_drivetrain.getCurrentJoystick()).getLeftTriggerAxis();
-        double rotationalSpeed = m_joysticks.get(m_drivetrain.getCurrentJoystick()).getLeftX();
+        //double forwardSpeed = m_joysticks.get(m_drivetrain.getCurrentJoystick()).getRightTriggerAxis() - m_joysticks.get(m_drivetrain.getCurrentJoystick()).getLeftTriggerAxis();
+        double forwardSpeed = m_joysticks.getRightTriggerAxis() - m_joysticks.getLeftTriggerAxis();
+        double rotationalSpeed = m_joysticks.getLeftX();
+        //double rotationalSpeed = m_joysticks.get(m_drivetrain.getCurrentJoystick()).getLeftX();
 
         m_drivetrain.defaultDrive(forwardSpeed, rotationalSpeed);
     }

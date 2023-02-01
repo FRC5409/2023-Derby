@@ -26,7 +26,8 @@ public class Limelight extends SubsystemBase {
   //shuffleboard
   private ShuffleboardTab position = Shuffleboard.getTab("Robot-Position");
   private final GenericEntry positionTab; 
-  private double[] robotPosition; 
+  private long[] robotPosition; 
+  private double[] deafultArray = new double[]{};
 
   public Limelight(){
     //networktables
@@ -39,12 +40,19 @@ public class Limelight extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    updateRobotPosition();
   }
 
-  public double[] fieldSpacePosition(){
+  public void updateRobotPosition() {
     //get the position of the robot in 3d fieldspace as calculated by fiducial targets
-    double[] robotPos = NetworkTableInstance.getDefault().getTable("limelight").getEntry("t6r_fs").getDoubleArray(0); //TEMPORARY
-    positionTab.setDouble(robotPos[0]); //testing
-    return robotPos;
+    double[] robotPos = NetworkTableInstance.getDefault()
+      .getTable("limelight")
+      .getEntry("botpose")
+      .getDoubleArray(deafultArray); //TEMPORARY
+      
+    if (robotPos.length != 0){
+      System.out.print(robotPos[0]);
+      positionTab.setDouble(robotPos[0]); //testing
+    }
   }
 }

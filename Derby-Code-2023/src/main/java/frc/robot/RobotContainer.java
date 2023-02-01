@@ -27,7 +27,7 @@ public class RobotContainer {
   //controller
   private final CommandXboxController sys_joystickMain = new CommandXboxController(0);
   private final CommandXboxController sys_joystickSecondary = new CommandXboxController(1);
-  private final ArrayList<CommandXboxController> sys_joysticks = new ArrayList<CommandXboxController>();
+  //private final ArrayList<CommandXboxController> sys_joysticks = new ArrayList<CommandXboxController>();
   
   // Subsystems
   private final Drivetrain sys_drivetrain = new Drivetrain();
@@ -35,7 +35,7 @@ public class RobotContainer {
   private final Limelight sys_Limelight = new Limelight();
 
   //commands
-  private final DefaultDrive cmd_defaultDrive = new DefaultDrive(sys_drivetrain, sys_joysticks);
+  private final DefaultDrive cmd_defaultDrive = new DefaultDrive(sys_drivetrain, sys_joystickMain);
   private final GearShift cmd_fastGear = new GearShift(sys_drivetrain, true);
   private final GearShift cmd_slowGear = new GearShift(sys_drivetrain, false);
   private final LimeLightCommand cmd_limeLight = new LimeLightCommand(sys_Limelight);
@@ -61,7 +61,7 @@ public class RobotContainer {
     sys_joystickMain.leftBumper().onTrue(cmd_fastGear).onFalse(cmd_slowGear);
     sys_joystickSecondary.start().onTrue(Commands.runOnce(() -> sys_drivetrain.changeJoystick()));
 
-    sys_joystickMain.povRight().onTrue(cmd_limeLight);
+    //sys_joystickMain.povRight().onTrue(cmd_limeLight);
   }
 
   /**
