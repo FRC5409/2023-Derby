@@ -10,6 +10,8 @@ import java.lang.reflect.Array;
 import java.security.Key;
 import java.util.ArrayList;
 
+import javax.swing.text.Position;
+
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -24,17 +26,18 @@ public class Limelight extends SubsystemBase {
   NetworkTable limelighTable;
 
   //shuffleboard
-  private ShuffleboardTab position = Shuffleboard.getTab("Robot-Position");
+  private ShuffleboardTab localization = Shuffleboard.getTab("Field Localization");
   private final GenericEntry positionTab; 
-  private long[] robotPosition; 
-  private double[] deafultArray = new double[]{};
+  private final GenericEntry rotationTab;  
+  private double[] positionDefaults = new double[]{};
 
   public Limelight(){
     //networktables
     NetworkTableInstance.getDefault().startServer();
     NetworkTableInstance.getDefault().setServerTeam(5409);
     
-    positionTab = position.add("x,y,z,rx,ry,rz", 0).getEntry();
+    positionTab = localization.add("Robot Position", 0).getEntry();
+    rotationTab = localization.add("Robot Rotation", 0).getEntry();
   }
 
   @Override
@@ -48,10 +51,10 @@ public class Limelight extends SubsystemBase {
     double[] robotPos = NetworkTableInstance.getDefault()
       .getTable("limelight")
       .getEntry("botpose")
-      .getDoubleArray(deafultArray); //TEMPORARY
-      
-    if (robotPos.length != 0){
-      System.out.print(robotPos[0]);
+      .getDoubleArray(positionDefaults); //TEMPORARY
+    
+    //pushing to shuffleboard1
+    if (robotPos.length != 0){ 
       positionTab.setDouble(robotPos[0]); //testing
     }
   }
