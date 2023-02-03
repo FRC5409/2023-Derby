@@ -93,7 +93,7 @@ public class Drivetrain extends SubsystemBase {
         System.out.println("Speed: " + fast);
         gearShift.set(fast);
         // gearShift.toggle();
-        
+
     }
 
     public int getCurrentJoystick() {

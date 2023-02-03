@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 import javax.swing.text.Position;
 
+import com.ctre.phoenix.CANifier.GeneralPin;
+
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -26,18 +28,35 @@ public class Limelight extends SubsystemBase {
   NetworkTable limelighTable;
 
   //shuffleboard
-  private ShuffleboardTab localization = Shuffleboard.getTab("Field Localization");
-  private final GenericEntry positionTab; 
-  private final GenericEntry rotationTab;  
+  private final ShuffleboardLayout localizationPos; 
+  private final ShuffleboardLayout localizationRot;
+
   private double[] positionDefaults = new double[]{};
 
   public Limelight(){
     //networktables
     NetworkTableInstance.getDefault().startServer();
     NetworkTableInstance.getDefault().setServerTeam(5409);
+
+    //shuffleboard
+    Shuffleboard.getTab("Field Localization").add("Position", 0);
+    Shuffleboard.getTab("Field Localization").add("Rotation", 0);
+
+    localizationPos = Shuffleboard.getTab("Field Localization")
+        .getLayout("Position", BuiltInLayouts.kGrid)
+        .withSize(1, 2);
     
-    positionTab = localization.add("Robot Position", 0).getEntry();
-    rotationTab = localization.add("Robot Rotation", 0).getEntry();
+    localizationPos.add("X", 0);
+    localizationPos.add("Y", 0);
+    localizationPos.add("Z", 0);
+
+    localizationRot = Shuffleboard.getTab("Field Localization")
+        .getLayout("Rotation", BuiltInLayouts.kGrid)
+        .withSize(1, 2);
+      
+    localizationRot.add("rX", 0);
+    localizationRot.add("rY", 0);
+    localizationRot.add("rZ", 0);
   }
 
   @Override
@@ -54,8 +73,18 @@ public class Limelight extends SubsystemBase {
       .getDoubleArray(positionDefaults); //TEMPORARY
     
     //pushing to shuffleboard1
-    if (robotPos.length != 0){ 
-      positionTab.setDouble(robotPos[0]); //testing
+    if (robotPos != null){ 
+      //update Rotation and Position here 
+      localizationPos.addDouble("X", robotPos[0]);
+
+      //MAKES EVERYTHING CRASH
+      //localizationPos.add("X", robotPos[0]);
+      //localizationPos.add("Y", robotPos[1]);
+      //localizationPos.add("Z", robotPos[2]);
+
+      //localizationRot.add("rX", robotPos[3]);
+      //localizationRot.add("rY", robotPos[4]);
+      //localizationRot.add("rZ", robotPos[5]);
     }
   }
 }
