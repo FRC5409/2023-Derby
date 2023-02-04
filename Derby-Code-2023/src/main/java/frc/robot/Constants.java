@@ -7,41 +7,50 @@ package frc.robot;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
+ * The Constants class provides a convenient place for teams to hold robot-wide
+ * numerical or boolean
+ * constants. This class should not be used for any other purpose. All constants
+ * should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
+ * <p>
+ * It is advised to statically import this class (or one of its inner classes)
+ * wherever the
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
 
-  public static class kDrivetrain {
+	public static class kDrivetrain {
 
-    public static final int currentLimit = 60;
+		public static final int currentLimit = 60;
 
-    public static final double rampRate = 0.3;
+		public static final double rampRate = 0.3;
 
-    public static class kMotors {
-      public static final int leftFrontId = 6;
-      public static final int leftRearId = 14;
-      public static final int rightFrontId = 4;
-      public static final int rightRearId = 15;
-    }
-  }
+		public static final double kCNodeTargetSpeed = 0.01;
 
-  public static class kPneumatics {
-    public static final PneumaticsModuleType pneumaticsModule = PneumaticsModuleType.CTREPCM;
+		public static class kMotors {
+			public static final int leftFrontId = 6;
+			public static final int leftRearId = 14;
+			public static final int rightFrontId = 4;
+			public static final int rightRearId = 15;
+		}
+	}
 
-    public static final int minPressure = 60;
-    public static final int maxPressure = 110;
+	public static class kPneumatics {
+		public static final PneumaticsModuleType pneumaticsModule = PneumaticsModuleType.CTREPCM;
 
-    public static final int compressorCANID = 12;
-    public static final int gearShiftPCMId = 0;
-  }
+		public static final int minPressure = 60;
+		public static final int maxPressure = 110;
 
-  public static class kLimelight {
-    public static final int heightOffFloor = 15; //cm
-    public static final int angle = 0; //degrees
-  }
+		public static final int compressorCANID = 12;
+		public static final int gearShiftPCMId = 0;
+	}
+
+	public static class kLimelight {
+		public static final int heightOffFloor = 15; // cm
+		public static final double highTargetHeight = 80; // cm
+		public static final double lowTargetHeight = 45; // cm
+		public static final int mountAngle = 0; // degrees
+		public static final double targetStopAngle = 5; // degrees
+	}
 }

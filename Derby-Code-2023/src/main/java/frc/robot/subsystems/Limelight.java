@@ -28,7 +28,7 @@ public class Limelight extends SubsystemBase {
   NetworkTable limelighTable;
 
   //shuffleboard
-  private final ShuffleboardLayout localizationPos; 
+  private final ShuffleboardLayout localizationPos;
   private final ShuffleboardLayout localizationRot;
 
   private double[] positionDefaults = new double[]{};
@@ -45,7 +45,7 @@ public class Limelight extends SubsystemBase {
     localizationPos = Shuffleboard.getTab("Field Localization")
         .getLayout("Position", BuiltInLayouts.kGrid)
         .withSize(1, 2);
-    
+
     localizationPos.add("X", 0);
     localizationPos.add("Y", 0);
     localizationPos.add("Z", 0);
@@ -53,7 +53,7 @@ public class Limelight extends SubsystemBase {
     localizationRot = Shuffleboard.getTab("Field Localization")
         .getLayout("Rotation", BuiltInLayouts.kGrid)
         .withSize(1, 2);
-      
+
     localizationRot.add("rX", 0);
     localizationRot.add("rY", 0);
     localizationRot.add("rZ", 0);
@@ -68,14 +68,14 @@ public class Limelight extends SubsystemBase {
   public void updateRobotPosition() {
     //get the position of the robot in 3d fieldspace as calculated by fiducial targets
     double[] robotPos = NetworkTableInstance.getDefault()
-      .getTable("limelight")
-      .getEntry("botpose")
+        .getTable("limelight")
+        .getEntry("botpose")
       .getDoubleArray(positionDefaults); //TEMPORARY
-    
+
     //pushing to shuffleboard1
     if (robotPos != null){ 
       //update Rotation and Position here 
-      localizationPos.addDouble("X", robotPos[0]);
+      //localizationPos.addDouble("X", robotPos[0]);
 
       //MAKES EVERYTHING CRASH
       //localizationPos.add("X", robotPos[0]);
