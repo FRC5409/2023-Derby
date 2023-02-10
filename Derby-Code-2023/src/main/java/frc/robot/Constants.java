@@ -26,7 +26,7 @@ public final class Constants {
 
 		public static final double rampRate = 0.3;
 
-		public static final double kCNodeTargetSpeed = 0.01;
+		public static final double kCNodeTargetSpeed = 0.022;
 
 		public static class kMotors {
 			public static final int leftFrontId = 6;

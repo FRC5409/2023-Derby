@@ -6,8 +6,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants;
 import frc.robot.Constants.kDrivetrain;
-import frc.robot.Constants.kLimelight;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.LimelightR;
 
@@ -50,7 +50,7 @@ public class ConeNodeAim extends CommandBase {
 		// dir = sys_limelightR.getXOffset() / Math.abs(sys_limelightR.getXOffset());
 		// dir returns -1 or 1 depending on if it's positive or if it's negative
 
-		turning = dir * kDrivetrain.kCNodeTargetSpeed;// Since the X Offset keeps decreasing, the turning speed will decrease
+		turning = dir * kDrivetrain.kCNodeTargetSpeed + m_joystick.getLeftX(); // Since the X Offset keeps decreasing, the turning speed will decrease
 
 		sys_drivetrain.defaultDrive(forwardSpeed, turning); // Tune this
 		// System.out.println("Executed");
@@ -67,6 +67,6 @@ public class ConeNodeAim extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return false; // Math.abs(sys_limelightR.getXOffset()) <= kLimelight.targetStopAngle && sys_limelightR.isVisible();
+		return Math.abs(sys_limelightR.getXOffset()) <= Constants.kLimelight.targetStopAngle && sys_limelightR.isVisible();
 	}
 }
