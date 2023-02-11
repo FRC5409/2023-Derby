@@ -20,37 +20,37 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
  */
 public final class Constants {
 
-	public static class kDrivetrain {
+    public static class kDrivetrain {
 
-		public static final int currentLimit = 60;
+        public static final int currentLimit = 60;
 
-		public static final double rampRate = 0.3;
+        public static final double rampRate = 0.3;
 
-		public static final double kCNodeTargetSpeed = 0.022;
+        public static final double kCNodeTargetSpeed = 1.5;
 
-		public static class kMotors {
-			public static final int leftFrontId = 6;
-			public static final int leftRearId = 14;
-			public static final int rightFrontId = 4;
-			public static final int rightRearId = 15;
-		}
-	}
+        public static class kMotors {
+            public static final int leftFrontId = 6;
+            public static final int leftRearId = 14;
+            public static final int rightFrontId = 4;
+            public static final int rightRearId = 15;
+        }
+    }
 
-	public static class kPneumatics {
-		public static final PneumaticsModuleType pneumaticsModule = PneumaticsModuleType.CTREPCM;
+    public static class kPneumatics {
+        public static final PneumaticsModuleType pneumaticsModule = PneumaticsModuleType.CTREPCM;
 
-		public static final int minPressure = 60;
-		public static final int maxPressure = 110;
+        public static final int minPressure = 60;
+        public static final int maxPressure = 110;
 
-		public static final int compressorCANID = 12;
-		public static final int gearShiftPCMId = 0;
-	}
+        public static final int compressorCANID = 12;
+        public static final int gearShiftPCMId = 0;
+    }
 
-	public static class kLimelight {
-		public static final int heightOffFloor = 15; // cm
-		public static final double highTargetHeight = 80; // cm
-		public static final double lowTargetHeight = 45; // cm
-		public static final int mountAngle = 0; // degrees
-		public static final double targetStopAngle = 5; // degrees
-	}
+    public static class kLimelight {
+        public static final int heightOffFloor = 15; // cm
+        public static final double highTargetHeight = 80; // cm
+        public static final double lowTargetHeight = 45; // cm
+        public static final int mountAngle = 0; // degrees
+        public static final double targetStopAngle = 1; // degrees
+    }
 }

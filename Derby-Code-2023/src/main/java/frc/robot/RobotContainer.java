@@ -15,7 +15,6 @@ import frc.robot.subsystems.LimelightR;
 
 import java.util.ArrayList;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -30,89 +29,87 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-	// Controllers
-	private final CommandXboxController sys_joystickMain;
-	private final CommandXboxController sys_joystickSecondary;
+    // Controllers
+    private final CommandXboxController sys_joystickMain;
+    private final CommandXboxController sys_joystickSecondary;
 
-	private final XboxController m_joystick;// For LimelightR (testing only)
-	// private final ArrayList<CommandXboxController> sys_joysticks = new
-	// ArrayList<CommandXboxController>();
+    // private final ArrayList<CommandXboxController> sys_joysticks = new
+    // ArrayList<CommandXboxController>();
 
-	// Subsystems
-	private final Drivetrain sys_drivetrain;
-	private final Pneumatics sys_pneumatics;
-	private final Limelight sys_Limelight;
-	private final LimelightR sysLimelightR;
+    // Subsystems
+    private final Drivetrain sys_drivetrain;
+    //private final Pneumatics sys_pneumatics;
+    private final Limelight sys_Limelight;
+    private final LimelightR sysLimelightR;
 
-	// commands
-	private final DefaultDrive cmd_defaultDrive;
-	private final GearShift cmd_fastGear;
-	private final GearShift cmd_slowGear;
-	private final LimeLightCommand cmd_limeLight;
-	private final ConeNodeAim cmd_coneNodeAim;
+    // commands
+    private final DefaultDrive cmd_defaultDrive;
+    private final GearShift cmd_fastGear;
+    private final GearShift cmd_slowGear;
+    private final LimeLightCommand cmd_limeLight;
+    private final ConeNodeAim cmd_coneNodeAim;
 
-	/**
-	 * The container for the robot. Contains subsystems, OI devices, and commands.
-	 */
-	public RobotContainer() {
+    /**
+     * The container for the robot. Contains subsystems, OI devices, and commands.
+     */
+    public RobotContainer() {
 
-		// Controllers
-		sys_joystickMain = new CommandXboxController(0);
-		sys_joystickSecondary = new CommandXboxController(1);
-	
-		m_joystick = new XboxController(0);
-		// private final ArrayList<CommandXboxController> sys_joysticks = new
-		// ArrayList<CommandXboxController>();
-	
-		// Subsystems
-		sys_drivetrain = new Drivetrain();
-		sys_pneumatics = new Pneumatics();
-		sys_Limelight = new Limelight();
-		sysLimelightR = new LimelightR(m_joystick);
+        // Controllers
+        sys_joystickMain = new CommandXboxController(0);
+        sys_joystickSecondary = new CommandXboxController(1);
 
-		// Commands
-		cmd_defaultDrive = new DefaultDrive(sys_drivetrain, sys_joystickMain);
-		cmd_fastGear = new GearShift(sys_drivetrain, true);
-		cmd_slowGear = new GearShift(sys_drivetrain, false);
-		cmd_limeLight = new LimeLightCommand(sys_Limelight);
-		cmd_coneNodeAim = new ConeNodeAim(sysLimelightR, sys_drivetrain, sys_joystickMain);
-	
-		// Configure the trigger bindings
-		sys_drivetrain.setDefaultCommand(cmd_defaultDrive);
+        // private final ArrayList<CommandXboxController> sys_joysticks = new
+        // ArrayList<CommandXboxController>();
 
-		configureBindings();
-	}
+        // Subsystems
+        sys_drivetrain = new Drivetrain();
+       // sys_pneumatics = new Pneumatics();
+        sys_Limelight = new Limelight();
+        sysLimelightR = new LimelightR(sys_joystickMain);
 
-	/**
-	 * Use this method to define your trigger->command mappings. Triggers can be
-	 * created via the
-	 * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
-	 * an arbitrary
-	 * predicate, or via the named factories in {@link
-	 * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
-	 * {@link
-	 * CommandXboxController
-	 * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-	 * PS4} controllers or
-	 * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-	 * joysticks}.
-	 */
-	private void configureBindings() {
+        // Commands
+        cmd_defaultDrive = new DefaultDrive(sys_drivetrain, sys_joystickMain);
+        cmd_fastGear = new GearShift(sys_drivetrain, true);
+        cmd_slowGear = new GearShift(sys_drivetrain, false);
+        cmd_limeLight = new LimeLightCommand(sys_Limelight);
+        cmd_coneNodeAim = new ConeNodeAim(sysLimelightR, sys_drivetrain, sys_joystickMain);
 
-		sys_joystickMain.leftBumper().onTrue(cmd_fastGear).onFalse(cmd_slowGear);
-		sys_joystickSecondary.start().onTrue(Commands.runOnce(() -> sys_drivetrain.changeJoystick()));
+        // Configure the trigger bindings
+        sys_drivetrain.setDefaultCommand(cmd_defaultDrive);
 
-		sys_joystickMain.y().whileTrue(cmd_coneNodeAim);
-		// sys_joystickMain.povRight().onTrue(cmd_limeLight);
-	}
+        configureBindings();
+    }
 
-	/**
-	 * Use this to pass the autonomous command to the main {@link Robot} class.
-	 *
-	 * @return the command to run in autonomous
-	 */
-	// public Command getAutonomousCommand() {
-	// // An example command will be run in autonomous
-	// // return Autos.exampleAuto(m_exampleSubsystem);
-	// }
+    /**
+     * Use this method to define your trigger->command mappings. Triggers can be
+     * created via the
+     * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
+     * an arbitrary
+     * predicate, or via the named factories in {@link
+     * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
+     * {@link
+     * CommandXboxController
+     * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+     * PS4} controllers or
+     * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+     * joysticks}.
+     */
+    private void configureBindings() {
+
+        sys_joystickMain.leftBumper().onTrue(cmd_fastGear).onFalse(cmd_slowGear);
+        sys_joystickSecondary.start().onTrue(Commands.runOnce(() -> sys_drivetrain.changeJoystick()));
+
+        sys_joystickMain.y().whileTrue(cmd_coneNodeAim);
+        // sys_joystickMain.povRight().onTrue(cmd_limeLight);
+    }
+
+    /**
+     * Use this to pass the autonomous command to the main {@link Robot} class.
+     *
+     * @return the command to run in autonomous
+     */
+    // public Command getAutonomousCommand() {
+    // // An example command will be run in autonomous
+    // // return Autos.exampleAuto(m_exampleSubsystem);
+    // }
 }

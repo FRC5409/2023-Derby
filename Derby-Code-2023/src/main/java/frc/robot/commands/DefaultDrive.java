@@ -30,7 +30,7 @@ public class DefaultDrive extends CommandBase {
         //double forwardSpeed = m_joysticks.get(m_drivetrain.getCurrentJoystick()).getRightTriggerAxis() - m_joysticks.get(m_drivetrain.getCurrentJoystick()).getLeftTriggerAxis();
         double forwardSpeed = m_joysticks.getRightTriggerAxis() - m_joysticks.getLeftTriggerAxis();
         double rotationalSpeed = m_joysticks.getLeftX();
-        //double rotationalSpeed = m_joysticks.get(m_drivetrain.getCurrentJoystick()).getLeftX();
+        // System.out.println("Rotational speed" + rotationalSpeed);        //double rotationalSpeed = m_joysticks.get(m_drivetrain.getCurrentJoystick()).getLeftX();
 
         m_drivetrain.defaultDrive(forwardSpeed, rotationalSpeed);
     }
