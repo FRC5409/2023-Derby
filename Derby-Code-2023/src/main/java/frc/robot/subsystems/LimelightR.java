@@ -29,7 +29,8 @@ public class LimelightR extends SubsystemBase {
 
     // Shuffleboard Tab and Entries
     private ShuffleboardTab sb_limelight;
-    private GenericEntry xOffEntry, yOffEntry, targetAreaEntry, visibilityEntry, ledModeEntry, cropEntry;
+    private GenericEntry xOffEntry, yOffEntry, targetAreaEntry, visibilityEntry, ledModeEntry;
+    // private GenericEntry cropEntry;
 
     /** Creates a new Limelight. */
     public LimelightR(CommandXboxController joystick) {
@@ -71,9 +72,9 @@ public class LimelightR extends SubsystemBase {
         else if (pov == 90)
             turningDir = 1;
 
-        getTargetAngle();// Getting the angle to the target
+        /* getTargetAngle();// Getting the angle to the target
         lowTargetDist = getDistanceToTarget(0);// Getting distance to target(s) using trigonometry
-        highTargetDist = getDistanceToTarget(1);
+        highTargetDist = getDistanceToTarget(1); */
 
         // Updating data on Shuffleboard
         xOffEntry.setDouble(getXOffset());
@@ -95,11 +96,6 @@ public class LimelightR extends SubsystemBase {
         nt_ledMode.setNumber(3);
     }
 
-    /** Gets data from an entry */
-    public double getData(String key) {
-        return limeRTable.getEntry(key).getDouble(0);
-    }
-
     /** Gets the X position/offset */
     public double getXOffset() {
         return nt_xOffset.getDouble(0);
@@ -108,30 +104,6 @@ public class LimelightR extends SubsystemBase {
     /** Gets the Y position/offset */
     public double getYOffset() {
         return nt_yOffset.getDouble(0);
-    }
-
-    /** Gets the angle to the target */
-    public double getTargetAngle() {
-        return (kLimelight.mountAngle + getYOffset()) * (Math.PI / 180);
-    }
-
-    /** Gets the turning direction */
-    public double getTurningDir() {
-        return turningDir;
-    }
-
-    /**
-     * Gets the distance from the target
-     * 
-     * @param level The level of the target (0: Middle node & 1: Upper node)
-     */
-    public double getDistanceToTarget(int level) {
-        if (level == 0)
-            return (kLimelight.lowTargetHeight - kLimelight.heightOffFloor) / Math.tan(angleToTarget);
-        else if (level == 1)
-            return (kLimelight.highTargetHeight - kLimelight.heightOffFloor) / Math.tan(angleToTarget);
-        else
-            return -1;
     }
 
     /** Checks if the target is visible or not */
@@ -144,36 +116,59 @@ public class LimelightR extends SubsystemBase {
         limeRTable.getEntry(key).setDouble(data);
     }
 
+    /** Gets the turning direction */
+    public double getTurningDir() {
+        return turningDir;
+    }
+
     /** Sets the turning direction */
     public void setTurningDir(double dir) {
         turningDir = dir;
     }
 
-    /*
-     * public double[] getCrop() {
-     * return nt_crop.getDoubleArray(new double[] {0, 0, 0, 0});
-     * }
-     * 
-     * public void setCrop(double xMin, double xMax, double yMin, double yMax) {
-     * nt_crop.setDoubleArray(new double[] {xMin, xMax, yMin, yMax});
-     * }
-     * 
-     * public int pickTarget() {
-     * setCrop(
-     * kLimelight.kCrop.kUpperHalf.minX,kLimelight.kCrop.kUpperHalf.maxX,
-     * kLimelight.kCrop.kUpperHalf.minY,kLimelight.kCrop.kUpperHalf.maxY
-     * );
-     * 
-     * if (isVisible()) return 1;
-     * 
-     * setCrop(
-     * kLimelight.kCrop.kLowerHalf.minX,kLimelight.kCrop.kLowerHalf.maxX,
-     * kLimelight.kCrop.kLowerHalf.minY,kLimelight.kCrop.kLowerHalf.maxY
-     * );
-     * 
-     * if (isVisible()) return 0;
-     * 
-     * else return -1;
-     * }
-     */
+    /** Gets data from an entry */
+    public double getData(String key) {
+        return limeRTable.getEntry(key).getDouble(0);
+    }
+
+    // Mostly unused code
+    /* public double getTargetAngle() {
+        return (kLimelight.mountAngle + getYOffset()) * (Math.PI / 180);
+    }
+
+    public double getDistanceToTarget(int level) {
+        if (level == 0)
+            return (kLimelight.lowTargetHeight - kLimelight.heightOffFloor) / Math.tan(angleToTarget);
+        else if (level == 1)
+            return (kLimelight.highTargetHeight - kLimelight.heightOffFloor) / Math.tan(angleToTarget);
+        else
+            return -1;
+    }
+
+    public double[] getCrop() {
+        return nt_crop.getDoubleArray(new double[] { 0, 0, 0, 0 });
+    }
+
+    public void setCrop(double xMin, double xMax, double yMin, double yMax) {
+        nt_crop.setDoubleArray(new double[] { xMin, xMax, yMin, yMax });
+    }
+
+    public int pickTarget() {
+        setCrop(
+                kLimelight.kCrop.kUpperHalf.minX, kLimelight.kCrop.kUpperHalf.maxX,
+                kLimelight.kCrop.kUpperHalf.minY, kLimelight.kCrop.kUpperHalf.maxY);
+
+        if (isVisible())
+            return 1;
+
+        setCrop(
+                kLimelight.kCrop.kLowerHalf.minX, kLimelight.kCrop.kLowerHalf.maxX,
+                kLimelight.kCrop.kLowerHalf.minY, kLimelight.kCrop.kLowerHalf.maxY);
+
+        if (isVisible())
+            return 0;
+
+        else
+            return -1;
+    } */
 }

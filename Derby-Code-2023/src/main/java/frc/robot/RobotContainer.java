@@ -9,9 +9,8 @@ import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.GearShift;
 import frc.robot.commands.LimeLightCommand;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.LimelightR;
+import frc.robot.subsystems.Pneumatics;
 
 import java.util.ArrayList;
 
@@ -40,7 +39,6 @@ public class RobotContainer {
     private final Drivetrain sys_drivetrain;
     //private final Pneumatics sys_pneumatics;
     private final Limelight sys_Limelight;
-    private final LimelightR sysLimelightR;
 
     // commands
     private final DefaultDrive cmd_defaultDrive;
@@ -64,15 +62,14 @@ public class RobotContainer {
         // Subsystems
         sys_drivetrain = new Drivetrain();
        // sys_pneumatics = new Pneumatics();
-        sys_Limelight = new Limelight();
-        sysLimelightR = new LimelightR(sys_joystickMain);
+        sys_Limelight = new Limelight(sys_joystickMain);
 
         // Commands
         cmd_defaultDrive = new DefaultDrive(sys_drivetrain, sys_joystickMain);
         cmd_fastGear = new GearShift(sys_drivetrain, true);
         cmd_slowGear = new GearShift(sys_drivetrain, false);
         cmd_limeLight = new LimeLightCommand(sys_Limelight);
-        cmd_coneNodeAim = new ConeNodeAim(sysLimelightR, sys_drivetrain, sys_joystickMain);
+        cmd_coneNodeAim = new ConeNodeAim(sys_Limelight, sys_drivetrain, sys_joystickMain);
 
         // Configure the trigger bindings
         sys_drivetrain.setDefaultCommand(cmd_defaultDrive);

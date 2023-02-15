@@ -8,31 +8,31 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.LimelightR;
+import frc.robot.subsystems.Limelight;
 
 public class ConeNodeAim extends CommandBase {
 
-    private final LimelightR sys_limelightR;
+    private final Limelight sys_limelight;
     private final Drivetrain sys_drivetrain;
     private final CommandXboxController m_joystick;
 
     double forwardSpeed, dir, turning;
 
     /** Creates a new TargetAim. */
-    public ConeNodeAim(LimelightR limelightR, Drivetrain drivetrain, CommandXboxController joystick) {
+    public ConeNodeAim(Limelight limelightR, Drivetrain drivetrain, CommandXboxController joystick) {
 
-        sys_limelightR = limelightR;
+        sys_limelight = limelightR;
         sys_drivetrain = drivetrain;
         m_joystick = joystick;
 
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(sys_drivetrain, sys_limelightR);
+        addRequirements(sys_drivetrain, sys_limelight);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        sys_limelightR.turnOn();
+        sys_limelight.turnOn();
         // sys_limelight.setData("pipeline", 1);
         // System.out.println("Initialized");
     }
@@ -43,10 +43,10 @@ public class ConeNodeAim extends CommandBase {
 
         forwardSpeed = m_joystick.getRightTriggerAxis() - m_joystick.getLeftTriggerAxis();
 
-        if (!sys_limelightR.isVisible()) {// dir on the controller
-            dir = sys_limelightR.getTurningDir();
+        if (!sys_limelight.isVisible()) {// dir on the controller
+            dir = sys_limelight.getTurningDir();
         } else {
-            dir = sys_limelightR.getXOffset();
+            dir = sys_limelight.getXOffset();
         }
 
         /*
@@ -66,7 +66,7 @@ public class ConeNodeAim extends CommandBase {
             turning *= ((Math.abs(dirInRad) / dirInRad));
         }
 
-        if (sys_limelightR.isVisible()) {
+        if (sys_limelight.isVisible()) {
             sys_drivetrain.defaultDrive(forwardSpeed, turning);
         } else {
             sys_drivetrain.defaultDrive(forwardSpeed, m_joystick.getLeftX());
@@ -80,14 +80,14 @@ public class ConeNodeAim extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         sys_drivetrain.defaultDrive(0, 0);
-        sys_limelightR.turnOff();
+        sys_limelight.turnOff();
         // System.out.println("Ended");
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(sys_limelightR.getXOffset()) <= Constants.kLimelight.targetStopAngle
-                && sys_limelightR.isVisible() && turning <= 0.25;
+        return Math.abs(sys_limelight.getXOffset()) <= Constants.kLimelight.targetStopAngle
+                && sys_limelight.isVisible() && turning <= 0.25;
     }
 }

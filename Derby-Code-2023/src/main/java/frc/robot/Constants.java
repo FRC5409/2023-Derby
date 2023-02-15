@@ -48,9 +48,13 @@ public final class Constants {
 
     public static class kLimelight {
         public static final int heightOffFloor = 15; // cm
-        public static final double highTargetHeight = 80; // cm
-        public static final double lowTargetHeight = 45; // cm
+        // public static final double highTargetHeight = 80; // cm
+        // public static final double lowTargetHeight = 45; // cm
         public static final int mountAngle = 0; // degrees
         public static final double targetStopAngle = 1; // degrees
+
+        public static final int kAutoLightTimeout = 1000; //ms
+        public static final boolean kDoAutoLight = true; 
+        public static final double kALTriggerDistance = .1;
     }
 }
